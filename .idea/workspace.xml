@@ -4,44 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b22353d1-bde8-4fed-bb32-65d30ec151fe" name="Changes" comment="u">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/bo/BOFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/bo/SuperBO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/config/FactoryConfiguration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/dao/CrudDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/dao/DAOFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/dao/SuperDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/dao/custom/impl/ProgramDAOImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/dao/custom/impl/StudentDAOImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/dao/custom/impl/UserDAOImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/entity/Payment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/entity/Program.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/entity/Student.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/entity/StudentProgram.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="b22353d1-bde8-4fed-bb32-65d30ec151fe" name="Changes" comment="commit">
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/dao/custom/IMPL/ProgramDAOImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/dao/custom/IMPL/StudentDAOImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/dao/custom/IMPL/UserDAOImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/hibernate.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hibernate.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/Launcher.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/Launcher.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/controllers/DashboardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/controllers/DashboardController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/controllers/EmployeeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/controllers/EmployeeController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/controllers/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/controllers/LoginController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/controllers/MyAccountController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/controllers/MyAccountController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/controllers/ProgramController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/controllers/ProgramController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/controllers/StudentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/controllers/StudentController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/dao/custom/IMPL/ProgramDAOImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/dao/custom/IMPL/StudentDAOImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/dao/custom/IMPL/UserDAOImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/hibernate.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/hibernate.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,7 +94,7 @@
       <option name="presentableId" value="Default" />
       <updated>1730699562560</updated>
       <workItem from="1730699563778" duration="57000" />
-      <workItem from="1730699653918" duration="6084000" />
+      <workItem from="1730699653918" duration="6433000" />
     </task>
     <task id="LOCAL-00001" summary="u">
       <option name="closed" value="true" />
@@ -140,7 +104,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730699880880</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="commit">
+      <option name="closed" value="true" />
+      <created>1730708072044</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1730708072044</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -148,6 +120,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="u" />
-    <option name="LAST_COMMIT_MESSAGE" value="u" />
+    <MESSAGE value="commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit" />
   </component>
 </project>
