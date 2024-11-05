@@ -1,34 +1,27 @@
 package com.zenveus.the_culinary_academy;
 
+import com.zenveus.the_culinary_academy.config.FactoryConfiguration;
+import com.zenveus.the_culinary_academy.entity.Program;
+import com.zenveus.the_culinary_academy.entity.Student;
+import org.hibernate.Session;
+
+import java.util.HashSet;
+
 public class main {
     public static void main(String[] args) {
-        // Get a session from the FactoryConfiguration
+        System.out.println("Hello, World!");
+
+        //save student
         Session session = FactoryConfiguration.getInstance().getSession();
+        session.beginTransaction();
+        Program program = new Program();
+        program.setProgramName("Diploma in Culinary Arts");
+        program.setDuration("6 months");
+        program.setFee(1500.00);
+        program.setStudentPrograms(new HashSet<>()); // Assuming no student programs initially
 
-        try {
-            // Begin a transaction
-            session.beginTransaction();
-
-            // Your database operations here
-            // For example, saving a new student
-            Student newStudent = new Student();
-            newStudent.setName("John Doe");
-            // Set other properties as needed
-
-            session.save(newStudent);
-
-            // Commit the transaction
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            // Handle exceptions and rollback if needed
-            if (session.getTransaction() != null) {
-                session.getTransaction().rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            // Close the session
-            session.close();
-        }
+        session.save(program);
+        session.getTransaction().commit();
+        session.close();
     }
 }
-

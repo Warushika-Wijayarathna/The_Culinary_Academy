@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import java.io.IOException;
 import java.util.Properties;
 
 public class FactoryConfiguration {
@@ -11,6 +12,7 @@ public class FactoryConfiguration {
     private SessionFactory sessionFactory;
 
     private FactoryConfiguration() {
+
         // Set Hibernate properties programmatically
         Properties hibernateProperties = new Properties();
         hibernateProperties.setProperty("hibernate.connection.driver_class", "com.mysql.cj.jdbc.Driver");
@@ -23,10 +25,6 @@ public class FactoryConfiguration {
         hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "create");
         hibernateProperties.setProperty("hibernate.show_sql", "true");
         hibernateProperties.setProperty("hibernate.format_sql", "true");
-
-        // Caching settings (optional)
-        hibernateProperties.setProperty("hibernate.cache.use_second_level_cache", "true");
-        hibernateProperties.setProperty("hibernate.cache.region.factory_class", "org.hibernate.cache.ehcache.EhCacheRegionFactory");
 
         // Configure Hibernate with properties and add annotated classes
         Configuration configuration = new Configuration()
@@ -52,3 +50,34 @@ public class FactoryConfiguration {
         return sessionFactory.openSession();
     }
 }
+
+//package com.zenveus.the_culinary_academy.config;
+//
+//
+//import org.hibernate.Session;
+//import org.hibernate.SessionFactory;
+//import org.hibernate.cfg.Configuration;
+//
+//public class FactoryConfiguration {
+//    private static FactoryConfiguration factoryConfiguration;
+//    private SessionFactory sessionFactory;
+//
+//    private FactoryConfiguration() {
+//        Configuration configuration = new Configuration().configure()
+//                .addAnnotatedClass(com.zenveus.the_culinary_academy.entity.Program.class)
+//                .addAnnotatedClass(com.zenveus.the_culinary_academy.entity.Student.class)
+//                .addAnnotatedClass(com.zenveus.the_culinary_academy.entity.StudentProgram.class)
+//                .addAnnotatedClass(com.zenveus.the_culinary_academy.entity.User.class)
+//                .addAnnotatedClass(com.zenveus.the_culinary_academy.entity.Payment.class);
+//        sessionFactory = configuration.configure().buildSessionFactory();
+//    }
+//
+//    public static FactoryConfiguration getInstance() {
+//        return (factoryConfiguration == null) ? factoryConfiguration =
+//                new FactoryConfiguration() : factoryConfiguration;
+//    }
+//
+//    public Session getSession() {
+//        return sessionFactory.openSession();
+//    }
+//}
