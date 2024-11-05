@@ -7,6 +7,7 @@ module com.zenveus.the_culinary_academy {
     requires static lombok;
     requires org.hibernate.orm.core;
     requires java.naming;
+    requires com.jfoenix;
 
     opens com.zenveus.the_culinary_academy to javafx.fxml;
     exports com.zenveus.the_culinary_academy;

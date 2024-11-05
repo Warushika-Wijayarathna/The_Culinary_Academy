@@ -1,6 +1,6 @@
 package com.zenveus.the_culinary_academy.bo;
 
-import com.zenveus.the_culinary_academy.bo.custom.IMPL.UserBOIMPL;
+import com.zenveus.the_culinary_academy.bo.custom.impl.UserBOIMPL;
 
 public class BOFactory {
 
