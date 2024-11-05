@@ -4,11 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b22353d1-bde8-4fed-bb32-65d30ec151fe" name="Changes" comment="user improvemnets">
+    <list default="true" id="b22353d1-bde8-4fed-bb32-65d30ec151fe" name="Changes" comment="user improvements">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/controllers/EmployeeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/controllers/EmployeeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/tm/UserTm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/tm/UserTm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/zenveus/the_culinary_academy/view/employee.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/zenveus/the_culinary_academy/view/employee.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/controllers/EmployeeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/controllers/EmployeeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/view/employee.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/view/employee.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,7 +135,7 @@
       <workItem from="1730699653918" duration="7272000" />
       <workItem from="1730709158210" duration="7461000" />
       <workItem from="1730784583370" duration="1301000" />
-      <workItem from="1730786167972" duration="8405000" />
+      <workItem from="1730786167972" duration="11922000" />
     </task>
     <task id="LOCAL-00001" summary="u">
       <option name="closed" value="true" />
@@ -221,7 +225,23 @@
       <option name="project" value="LOCAL" />
       <updated>1730816546692</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="user improvements">
+      <option name="closed" value="true" />
+      <created>1730817050229</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1730817050229</updated>
+    </task>
+    <task id="LOCAL-00013" summary="user improvements">
+      <option name="closed" value="true" />
+      <created>1730817077414</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1730817077414</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -235,6 +255,7 @@
     <MESSAGE value="entity adjustments" />
     <MESSAGE value="some file refactoring" />
     <MESSAGE value="user improvemnets" />
-    <option name="LAST_COMMIT_MESSAGE" value="user improvemnets" />
+    <MESSAGE value="user improvements" />
+    <option name="LAST_COMMIT_MESSAGE" value="user improvements" />
   </component>
 </project>

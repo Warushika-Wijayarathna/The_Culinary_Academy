@@ -1,5 +1,6 @@
 package com.zenveus.the_culinary_academy.controllers;
 
+import com.jfoenix.controls.JFXButton;
 import com.zenveus.the_culinary_academy.bo.BOFactory;
 import com.zenveus.the_culinary_academy.bo.custom.UserBO;
 import com.zenveus.the_culinary_academy.dto.UserDto;
@@ -8,6 +9,9 @@ import com.zenveus.the_culinary_academy.util.Regex;
 import com.zenveus.the_culinary_academy.util.TextFields;
 
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -17,6 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -46,11 +51,13 @@ public class EmployeeController implements Initializable {
     public TableColumn<?,?> colUsrName;
     public TableColumn<?,?> colUsrEmail;
     public TableColumn<?,?> colUsrPhone;
-    public TableColumn<?,?> colUsrAddress;
-
+    public TableColumn<?, ?> colUsrAddress;
+    public UserTm selectedItem;
+    public TableColumn colActionBtn;
     private TranslateTransition sideTransition;
     private boolean isShow = false;
 
+    ObservableList<UserTm> obList = FXCollections.observableArrayList();
     UserBO userBO = (UserBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.USER);
 
     @Override
@@ -249,10 +256,19 @@ public class EmployeeController implements Initializable {
     }
 
     public void loadAllEmployees(){
-        List<UserDto> allUsers = userBO.getAllUsers();
-        userTable.getItems().clear();
-        for (UserDto userDto : allUsers) {
-            userTable.getItems().add(new UserTm(userDto.getUserId(), userDto.getFullName(), userDto.getEmail(), userDto.getPhoneNumber(), userDto.getAddress()));
+        try {
+            List<UserDto> allUsers = userBO.getAllUsers();
+            obList.clear();
+            for (UserDto userDto : allUsers) {
+                JFXButton btn = new JFXButton("Update");
+                btn.setOnAction(event -> {
+                    updateEmployee(userDto);
+                });
+                obList.add(new UserTm(userDto.getUserId(), userDto.getFullName(), userDto.getEmail(), userDto.getPhoneNumber(), userDto.getAddress(), btn));
+            }
+            userTable.setItems(obList);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -262,5 +278,16 @@ public class EmployeeController implements Initializable {
         colUsrEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         colUsrPhone.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         colUsrAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+    }
+
+    public void updateEmployee(UserDto userDto){
+        employeeIDField.setText(userDto.getUserId());
+        employeeEmailField.setText(userDto.getEmail());
+        employeeNameField.setText(userDto.getFullName());
+        employeePhoneField.setText(userDto.getPhoneNumber());
+        employeeAddressField.setText(userDto.getAddress());
+
+        setTransition();
+
     }
 }

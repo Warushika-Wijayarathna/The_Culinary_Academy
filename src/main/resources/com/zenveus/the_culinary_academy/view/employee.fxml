@@ -20,6 +20,7 @@
             <TableColumn fx:id="colUsrEmail" prefWidth="175.0" style="-fx-background-color: white; -fx-border-color: transparent transparent black transparent; -fx-border-width: 0 0 1px 0;" text="Email" />
             <TableColumn fx:id="colUsrPhone" prefWidth="131.0" style="-fx-background-color: white; -fx-border-color: transparent transparent black transparent; -fx-border-width: 0 0 1px 0;" text="Phone" />
             <TableColumn fx:id="colUsrAddress" prefWidth="164.0" style="-fx-background-color: white; -fx-border-color: transparent transparent black transparent; -fx-border-width: 0 0 1px 0;" text="Address" />
+            <TableColumn fx:id="colActionBtn" style="-fx-background-color: white; -fx-border-color: transparent transparent black transparent; -fx-border-width: 0 0 1px 0;" text="Action" />
          </columns>
       </TableView>
       <AnchorPane layoutX="15.0" layoutY="96.0" prefHeight="160.0" prefWidth="743.0" style="-fx-background-color: rgba(255, 255, 255, 0.3); -fx-background-radius: 30px;">
