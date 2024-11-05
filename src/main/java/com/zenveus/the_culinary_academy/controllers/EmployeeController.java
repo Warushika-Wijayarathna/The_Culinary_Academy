@@ -13,6 +13,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
@@ -27,6 +28,7 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -118,14 +120,49 @@ public class EmployeeController implements Initializable {
     //  employee back btn (search bar)
     public void employeeBackBtn(ActionEvent actionEvent) {
         System.out.println("click employee page back Btn");
+
+        // LOAD DASHBOARD
+
+        try {
+            AnchorPane pane = FXMLLoader.load(getClass().getResource("/com/zenveus/the_culinary_academy/view/dashboard.fxml"));
+            employeeRegMainAnchor.getChildren().setAll(pane);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     // employee search filed enter click (search bar)
     public void searchEmployeeClick(ActionEvent actionEvent) {
         System.out.println("click employee search filed");
+
+        String searchText = searchEmployee.getText();
+
+        if(searchText.isEmpty()){
+            loadAllEmployees();
+            return;
+        }
+
+        List<UserDto> allUsers = userBO.getAllUsers();
+        obList.clear();
+        for (UserDto userDto : allUsers) {
+            if(userDto.getUserId().contains(searchText) || userDto.getFullName().contains(searchText) || userDto.getEmail().contains(searchText) || userDto.getPhoneNumber().contains(searchText) || userDto.getAddress().contains(searchText)){
+                obList.add(new UserTm(userDto.getUserId(), userDto.getFullName(), userDto.getEmail(), userDto.getPhoneNumber(), userDto.getAddress()));
+            }
+        }
+        userTable.setItems(obList);
+
     }
     // employee search clear btn (search bar)
     public void searchEmployeeClearBtn(ActionEvent actionEvent) {
         System.out.println("click employee create Btn");
+
+
+    }
+
+    
+    
+    // employee delete btn
+    public void employeeDeleteBtn(ActionEvent actionEvent) {
+        System.out.println("click employee delete Btn");
 
         UserDto user = new UserDto();
         user.setUserId(employeeIDField.getText());
@@ -144,13 +181,6 @@ public class EmployeeController implements Initializable {
         }else{
             new Alert(Alert.AlertType.ERROR, "Failed to Delete Employee!").showAndWait();
         }
-    }
-
-    
-    
-    // employee delete btn
-    public void employeeDeleteBtn(ActionEvent actionEvent) {
-        System.out.println("click employee delete Btn");
     }
     // employee save btn
     public void employeeSaveBtn(ActionEvent actionEvent) {

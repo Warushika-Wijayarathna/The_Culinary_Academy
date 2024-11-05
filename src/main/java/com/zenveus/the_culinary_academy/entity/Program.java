@@ -17,9 +17,8 @@ import java.util.Set;
 @Table(name = "program")
 public class Program {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "program_id")
-    private Long programId;
+    private String programId;
 
     @Column(name = "program_name", nullable = false)
     private String programName;
