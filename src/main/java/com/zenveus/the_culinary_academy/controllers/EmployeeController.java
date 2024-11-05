@@ -155,7 +155,7 @@ public class EmployeeController implements Initializable {
     public void searchEmployeeClearBtn(ActionEvent actionEvent) {
         System.out.println("click employee create Btn");
 
-
+        searchEmployee.setText("");
     }
 
     
