@@ -53,7 +53,7 @@ public class EmployeeController implements Initializable {
     public TableColumn<?,?> colUsrPhone;
     public TableColumn<?, ?> colUsrAddress;
     public UserTm selectedItem;
-    public TableColumn colActionBtn;
+    public TableColumn<?,?> colActionBtn;
     private TranslateTransition sideTransition;
     private boolean isShow = false;
 
@@ -195,6 +195,7 @@ public class EmployeeController implements Initializable {
                 new Alert(Alert.AlertType.INFORMATION, "Employee Added Successfully!").showAndWait();
                 setEmployeeID();
                 clearAllFields();
+                loadAllEmployees();
             }else{
                 new Alert(Alert.AlertType.ERROR, "Failed to Add Employee!").showAndWait();
             }
@@ -278,6 +279,7 @@ public class EmployeeController implements Initializable {
         colUsrEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         colUsrPhone.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         colUsrAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colActionBtn.setCellValueFactory(new PropertyValueFactory<>("actionBtn"));
     }
 
     public void updateEmployee(UserDto userDto){

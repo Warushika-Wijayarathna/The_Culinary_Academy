@@ -16,11 +16,11 @@
       <TableView fx:id="userTable" layoutX="30.0" layoutY="277.0" prefHeight="325.0" prefWidth="712.0" style="-fx-background-color: transpanent; -fx-border-color: rgba(0, 0, 0, 0.4); -fx-border-width: 1px; -fx-border-radius: 5px; -fx-background-radius: 5px;">
          <columns>
             <TableColumn fx:id="colUsrId" style="-fx-background-color: white; -fx-border-color: transparent transparent black transparent; -fx-border-width: 0 0 1px 0;" text="ID" />
-            <TableColumn fx:id="colUsrName" prefWidth="158.0" style="-fx-background-color: white; -fx-border-color: transparent transparent black transparent; -fx-border-width: 0 0 1px 0;" text="Name" />
-            <TableColumn fx:id="colUsrEmail" prefWidth="175.0" style="-fx-background-color: white; -fx-border-color: transparent transparent black transparent; -fx-border-width: 0 0 1px 0;" text="Email" />
-            <TableColumn fx:id="colUsrPhone" prefWidth="131.0" style="-fx-background-color: white; -fx-border-color: transparent transparent black transparent; -fx-border-width: 0 0 1px 0;" text="Phone" />
-            <TableColumn fx:id="colUsrAddress" prefWidth="164.0" style="-fx-background-color: white; -fx-border-color: transparent transparent black transparent; -fx-border-width: 0 0 1px 0;" text="Address" />
-            <TableColumn fx:id="colActionBtn" style="-fx-background-color: white; -fx-border-color: transparent transparent black transparent; -fx-border-width: 0 0 1px 0;" text="Action" />
+            <TableColumn fx:id="colUsrName" prefWidth="103.0" style="-fx-background-color: white; -fx-border-color: transparent transparent black transparent; -fx-border-width: 0 0 1px 0;" text="Name" />
+            <TableColumn fx:id="colUsrEmail" prefWidth="140.0" style="-fx-background-color: white; -fx-border-color: transparent transparent black transparent; -fx-border-width: 0 0 1px 0;" text="Email" />
+            <TableColumn fx:id="colUsrPhone" prefWidth="136.0" style="-fx-background-color: white; -fx-border-color: transparent transparent black transparent; -fx-border-width: 0 0 1px 0;" text="Phone" />
+            <TableColumn fx:id="colUsrAddress" prefWidth="104.0" style="-fx-background-color: white; -fx-border-color: transparent transparent black transparent; -fx-border-width: 0 0 1px 0;" text="Address" />
+            <TableColumn fx:id="colActionBtn" prefWidth="146.0" style="-fx-background-color: white; -fx-border-color: transparent transparent black transparent; -fx-border-width: 0 0 1px 0;" text="Action" />
          </columns>
       </TableView>
       <AnchorPane layoutX="15.0" layoutY="96.0" prefHeight="160.0" prefWidth="743.0" style="-fx-background-color: rgba(255, 255, 255, 0.3); -fx-background-radius: 30px;">
@@ -34,8 +34,26 @@
       </AnchorPane>
       <AnchorPane layoutX="769.0" layoutY="96.0" prefHeight="301.0" prefWidth="270.0" style="-fx-background-color: rgba(255, 255, 255, 0.3); -fx-background-radius: 30px;" />
       <AnchorPane layoutX="769.0" layoutY="408.0" prefHeight="194.0" prefWidth="270.0" style="-fx-background-color: rgba(255, 255, 255, 0.3); -fx-background-radius: 30px;" />
-      <VBox layoutX="-5.0" prefHeight="624.0" prefWidth="1055.0">
-         <AnchorPane fx:id="employeeRegMainAnchor" layoutX="10.0" maxWidth="1065.0" minWidth="1027.0" prefHeight="616.0" prefWidth="1065.0">
+   </AnchorPane>
+   <AnchorPane layoutX="100.0" layoutY="19.0" prefHeight="45.0" prefWidth="865.0" style="-fx-background-color: rgba(255, 255, 255, 0.3); -fx-background-radius: 50px;">
+      <Button layoutX="5.0" layoutY="4.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" onAction="#employeeBackBtn" style="-fx-background-color: rgba(0, 0, 0, 0.3); -fx-background-radius: 50%;" />
+      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="12.0" layoutY="12.0">
+         <Image url="@../image/icons/leftArow.png" />
+      </ImageView>
+      <AnchorPane layoutX="281.0" layoutY="5.0" prefHeight="35.0" prefWidth="494.0" style="-fx-background-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.3); -fx-background-radius: 50px;">
+         <TextField fx:id="searchEmployee" layoutX="31.0" layoutY="2.0" minHeight="30.0" minWidth="300.0" onAction="#searchEmployeeClick" prefHeight="30.0" prefWidth="444.0" promptText="Search Employee" style="-fx-background-color: transpanent;" />
+         <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="7.0" layoutY="8.0">
+            <Image url="@../image/icons/search-icon.png" />
+         </ImageView>
+      </AnchorPane>
+      <Button layoutX="788.0" layoutY="4.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" onAction="#searchEmployeeClearBtn" prefHeight="35.0" prefWidth="72.0" style="-fx-background-color: rgba(0, 0, 0, 0.3); -fx-background-radius: 30px;" />
+      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="816.0" layoutY="12.0">
+         <Image url="@../image/icons/cloce.png" />
+      </ImageView>
+   </AnchorPane>
+   <VBox layoutX="-5.0" prefHeight="624.0" prefWidth="1055.0">
+      <children>
+         <AnchorPane fx:id="employeeRegMainAnchor" layoutX="33.0" layoutY="10.0" maxWidth="1065.0" minWidth="1027.0" prefHeight="616.0" prefWidth="1065.0">
             <AnchorPane layoutX="527.0" layoutY="96.0" prefHeight="528.0" prefWidth="533.0" style="-fx-background-color: white; -fx-background-radius: 30px 0px 00px 30px;">
                <TextField fx:id="employeeIDField" layoutX="48.0" layoutY="136.0" prefHeight="45.0" prefWidth="210.0" promptText="Codinator ID" style="-fx-border-radius: 5px; -fx-border-color: rgb(0,0,0,0.4);" />
                <Text fill="#0000009d" layoutX="50.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Codinator ID">
@@ -85,7 +103,7 @@
                </Button>
                <AnchorPane layoutX="-12.0" layoutY="216.0" prefHeight="24.0" prefWidth="31.0" style="-fx-background-color: white; -fx-background-radius: 10px;">
                   <ImageView fx:id="reportLeftRightImage" fitHeight="20.0" fitWidth="20.0" layoutX="-2.0" layoutY="2.0">
-                     <Image url="@../../../../../../../../newZips/NewManazinePrison/src/main/resources/images/icon/leftArrowIcon.png" />
+
                   </ImageView>
                   <Button layoutX="-1.0" layoutY="2.0" mnemonicParsing="false" onAction="#employeeAddPaneShowHideBtn" prefHeight="24.0" prefWidth="28.0" style="-fx-background-color: transpanent;" />
                </AnchorPane>
@@ -97,22 +115,6 @@
                </Text>
             </AnchorPane>
          </AnchorPane>
-      </VBox>
-   </AnchorPane>
-   <AnchorPane layoutX="100.0" layoutY="19.0" prefHeight="45.0" prefWidth="865.0" style="-fx-background-color: rgba(255, 255, 255, 0.3); -fx-background-radius: 50px;">
-      <Button layoutX="5.0" layoutY="4.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" onAction="#employeeBackBtn" style="-fx-background-color: rgba(0, 0, 0, 0.3); -fx-background-radius: 50%;" />
-      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="12.0" layoutY="12.0">
-         <Image url="@../image/icons/leftArow.png" />
-      </ImageView>
-      <AnchorPane layoutX="281.0" layoutY="5.0" prefHeight="35.0" prefWidth="494.0" style="-fx-background-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.3); -fx-background-radius: 50px;">
-         <TextField fx:id="searchEmployee" layoutX="31.0" layoutY="2.0" minHeight="30.0" minWidth="300.0" onAction="#searchEmployeeClick" prefHeight="30.0" prefWidth="444.0" promptText="Search Employee" style="-fx-background-color: transpanent;" />
-         <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="7.0" layoutY="8.0">
-            <Image url="@../image/icons/search-icon.png" />
-         </ImageView>
-      </AnchorPane>
-      <Button layoutX="788.0" layoutY="4.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" onAction="#searchEmployeeClearBtn" prefHeight="35.0" prefWidth="72.0" style="-fx-background-color: rgba(0, 0, 0, 0.3); -fx-background-radius: 30px;" />
-      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="816.0" layoutY="12.0">
-         <Image url="@../image/icons/cloce.png" />
-      </ImageView>
-   </AnchorPane>
+      </children>
+   </VBox>
 </AnchorPane>
