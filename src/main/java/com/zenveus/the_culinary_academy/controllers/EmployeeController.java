@@ -53,7 +53,6 @@ public class EmployeeController implements Initializable {
     public TableColumn<?,?> colUsrPhone;
     public TableColumn<?, ?> colUsrAddress;
     public UserTm selectedItem;
-    public TableColumn<?,?> colActionBtn;
     private TranslateTransition sideTransition;
     private boolean isShow = false;
 
@@ -127,6 +126,24 @@ public class EmployeeController implements Initializable {
     // employee search clear btn (search bar)
     public void searchEmployeeClearBtn(ActionEvent actionEvent) {
         System.out.println("click employee create Btn");
+
+        UserDto user = new UserDto();
+        user.setUserId(employeeIDField.getText());
+        user.setFullName(employeeNameField.getText());
+        user.setEmail(employeeEmailField.getText());
+        user.setPhoneNumber(employeePhoneField.getText());
+        user.setAddress(employeeAddressField.getText());
+
+        boolean isDeleted = userBO.deleteUser(user);
+
+        if(isDeleted){
+            new Alert(Alert.AlertType.INFORMATION, "Employee Deleted Successfully!").showAndWait();
+            setEmployeeID();
+            clearAllFields();
+            loadAllEmployees();
+        }else{
+            new Alert(Alert.AlertType.ERROR, "Failed to Delete Employee!").showAndWait();
+        }
     }
 
     
@@ -254,6 +271,17 @@ public class EmployeeController implements Initializable {
     // employee update btn
     public void employeeUpdateBtn(ActionEvent actionEvent) {
         System.out.println("click employee update Btn");
+
+        boolean isUpdated = userBO.updateUser(new UserDto(selectedItem.getUserId(), selectedItem.getFullName(), selectedItem.getEmail(), selectedItem.getPhoneNumber(), selectedItem.getAddress(), selectedItem.getUserId(), selectedItem.getUserId()));
+        if(isUpdated){
+            new Alert(Alert.AlertType.INFORMATION, "Employee Updated Successfully!").showAndWait();
+            setEmployeeID();
+            clearAllFields();
+            loadAllEmployees();
+        }else{
+            new Alert(Alert.AlertType.ERROR, "Failed to Update Employee!").showAndWait();
+        }
+
     }
 
     public void loadAllEmployees(){
@@ -261,11 +289,7 @@ public class EmployeeController implements Initializable {
             List<UserDto> allUsers = userBO.getAllUsers();
             obList.clear();
             for (UserDto userDto : allUsers) {
-                JFXButton btn = new JFXButton("Update");
-                btn.setOnAction(event -> {
-                    updateEmployee(userDto);
-                });
-                obList.add(new UserTm(userDto.getUserId(), userDto.getFullName(), userDto.getEmail(), userDto.getPhoneNumber(), userDto.getAddress(), btn));
+                obList.add(new UserTm(userDto.getUserId(), userDto.getFullName(), userDto.getEmail(), userDto.getPhoneNumber(), userDto.getAddress()));
             }
             userTable.setItems(obList);
         } catch (Exception e) {
@@ -279,17 +303,25 @@ public class EmployeeController implements Initializable {
         colUsrEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         colUsrPhone.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         colUsrAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
-        colActionBtn.setCellValueFactory(new PropertyValueFactory<>("actionBtn"));
     }
 
-    public void updateEmployee(UserDto userDto){
-        employeeIDField.setText(userDto.getUserId());
-        employeeEmailField.setText(userDto.getEmail());
-        employeeNameField.setText(userDto.getFullName());
-        employeePhoneField.setText(userDto.getPhoneNumber());
-        employeeAddressField.setText(userDto.getAddress());
+    public void rowClick(MouseEvent mouseEvent) {
+        System.out.println("click row");
+        if (userTable.getSelectionModel().getSelectedItem() != null) {
+            selectedItem = userTable.getSelectionModel().getSelectedItem();
+            employeeIDField.setText(selectedItem.getUserId());
+            employeeNameField.setText(selectedItem.getFullName());
+            employeeEmailField.setText(selectedItem.getEmail());
+            employeePhoneField.setText(selectedItem.getPhoneNumber());
+            employeeAddressField.setText(selectedItem.getAddress());
 
-        setTransition();
-
+            if(isShow){
+                isShow = !isShow;
+                sideTransition.setDuration(Duration.seconds(isShow ? 1.5 : 2));
+                sideTransition.setToX(isShow ? 550 : 0);
+                updateIcon();
+                sideTransition.play();
+            }
+        }
     }
 }

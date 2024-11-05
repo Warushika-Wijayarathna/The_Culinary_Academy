@@ -41,4 +41,24 @@ public class UserBOIMPL implements UserBO {
 
         return userDtoList;
     }
+
+    @Override
+    public boolean updateUser(UserDto userDto) {
+        try {
+            userDAO.update(new User(userDto.getUserId(), userDto.getFullName(), userDto.getEmail(), userDto.getPhoneNumber(), userDto.getAddress(), userDto.getUsername(), userDto.getPassword()));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean deleteUser(UserDto userDto) {
+        try {
+            userDAO.delete(new User(userDto.getUserId(), userDto.getFullName(), userDto.getEmail(), userDto.getPhoneNumber(), userDto.getAddress(), userDto.getUsername(), userDto.getPassword()));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return true;
+    }
 }

@@ -9,4 +9,8 @@ public interface UserBO extends SuperBO {
     boolean addUser(UserDto userDto) throws Exception;
 
     List<UserDto> getAllUsers();
+
+    boolean updateUser(UserDto userDto);
+
+    boolean deleteUser(UserDto userDto);
 }
