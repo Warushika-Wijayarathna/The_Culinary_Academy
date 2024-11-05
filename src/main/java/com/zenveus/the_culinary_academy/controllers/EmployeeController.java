@@ -80,22 +80,22 @@ public class EmployeeController implements Initializable {
     }
 
     private String getLastUserId() {
-    List<UserDto> allUsers = userBO.getAllUsers();
+        List<UserDto> allUsers = userBO.getAllUsers();
 
-    if (allUsers.isEmpty()) {
-        return "U001";
+        if (allUsers.isEmpty()) {
+            return "U001";
+        }
+
+        String lastUserId = allUsers.get(allUsers.size() - 1).getUserId();
+        if (lastUserId == null || lastUserId.isEmpty() || !lastUserId.matches("U\\d+")) {
+            return "U001";
+        }
+
+        int id = Integer.parseInt(lastUserId.substring(1));
+        id++;
+
+        return String.format("U%03d", id);
     }
-
-    String lastUserId = allUsers.get(allUsers.size() - 1).getUserId();
-    if (lastUserId == null || lastUserId.isEmpty() || !lastUserId.matches("U\\d+")) {
-        return "U001";
-    }
-
-    int id = Integer.parseInt(lastUserId.substring(1));
-    id++;
-
-    return String.format("U%03d", id);
-}
 
 
     //    side menu transition
@@ -125,7 +125,6 @@ public class EmployeeController implements Initializable {
     public void employeeBackBtn(ActionEvent actionEvent) {
         System.out.println("click employee page back Btn");
 
-        // load dashboard page after clearing employeeRegMainAnchor
         DashboardController dashboardController = new DashboardController();
         dashboardController.loadDashboard(employeeRegMainAnchor);
 

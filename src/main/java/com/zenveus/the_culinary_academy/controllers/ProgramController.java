@@ -1,12 +1,18 @@
 package com.zenveus.the_culinary_academy.controllers;
 
+import com.zenveus.the_culinary_academy.bo.BOFactory;
+import com.zenveus.the_culinary_academy.bo.custom.ProgramBO;
+import com.zenveus.the_culinary_academy.dto.ProgramDto;
 import com.zenveus.the_culinary_academy.tm.ProgramTm;
 import javafx.animation.TranslateTransition;
+import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -16,6 +22,7 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ProgramController implements Initializable {
@@ -45,10 +52,61 @@ public class ProgramController implements Initializable {
     private TranslateTransition sideTransition;
     private boolean isShow = false;
 
+
+    ObservableList<ProgramTm> observableList = FXCollections.observableArrayList();
+    ProgramBO programBo = (ProgramBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PROGRAM);
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setTransition();
+        setProgramID();
+        setCellValueFactories();
+        loadAllPrograms();
     }
+
+    private void loadAllPrograms() {
+        try {
+            List<ProgramDto> allPrograms = programBo.getAllPrograms();
+            observableList.clear();
+            for (ProgramDto programDto : allPrograms) {
+                observableList.add(new ProgramTm(programDto.getProgramId(), programDto.getProgramName(), programDto.getDuration(), String.valueOf(programDto.getFee())));
+            }
+            programTable.setItems(observableList);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void setCellValueFactories() {
+        colProId.setCellValueFactory(new PropertyValueFactory<>("programId"));
+        colProName.setCellValueFactory(new PropertyValueFactory<>("programName"));
+        colProDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
+        colProFee.setCellValueFactory(new PropertyValueFactory<>("fee"));
+    }
+
+    private void setProgramID() {
+        String lastProgramID = getLastProgramID();
+        programIDField.setText(lastProgramID);
+        programIDField.setDisable(true);
+    }
+
+    private String getLastProgramID() {
+        List<ProgramDto> allPrograms = programBo.getAllPrograms();
+        if (allPrograms.isEmpty()) {
+            return "P001";
+        } else {
+            String lastProgramID = allPrograms.get(allPrograms.size() - 1).getProgramId();
+            int newProgramID = Integer.parseInt(lastProgramID.substring(1)) + 1;
+            if (newProgramID < 10) {
+                return "P00" + newProgramID;
+            } else if (newProgramID < 100) {
+                return "P0" + newProgramID;
+            } else {
+                return "P" + newProgramID;
+            }
+        }
+    }
+
     private void setTransition() {
         sideTransition = new TranslateTransition(Duration.seconds(1.5), programRegMainAnchor);
         sideTransition.setFromX(0);
@@ -74,10 +132,32 @@ public class ProgramController implements Initializable {
     //  program back btn (search bar)
     public void programBackBtn(ActionEvent actionEvent) {
         System.out.println("click program page back Btn");
+
+        DashboardController dashboardController = new DashboardController();
+        dashboardController.loadDashboard(programRegMainAnchor);
     }
     // program search filed enter click (search bar)
     public void searchProgramClick(ActionEvent actionEvent) {
         System.out.println("click program search Btn");
+
+        String programName = searchEmployee.getText();
+
+        if (programName.isEmpty()) {
+            loadAllPrograms();
+            return;
+        }
+
+        List<ProgramDto> allPrograms = programBo.getAllPrograms();
+        observableList.clear();
+
+        for (ProgramDto programDto : allPrograms) {
+            if (programDto.getProgramName().contains(programName)) {
+                observableList.add(new ProgramTm(programDto.getProgramId(), programDto.getProgramName(), programDto.getDuration(), String.valueOf(programDto.getFee())));
+            }
+        }
+
+        programTable.setItems(observableList);
+
     }
 
     // program search clear btn (search bar)
