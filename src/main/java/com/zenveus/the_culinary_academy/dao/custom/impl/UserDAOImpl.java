@@ -37,6 +37,12 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public List<User> getAll() throws Exception {
-        return List.of();
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        List<User> list = session.createQuery("from User").list();
+        transaction.commit();
+        session.close();
+
+        return list;
     }
 }

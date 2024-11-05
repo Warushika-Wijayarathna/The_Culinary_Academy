@@ -6,6 +6,9 @@ import com.zenveus.the_culinary_academy.dao.custom.UserDAO;
 import com.zenveus.the_culinary_academy.dto.UserDto;
 import com.zenveus.the_culinary_academy.entity.User;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class UserBOIMPL implements UserBO {
 
@@ -20,5 +23,22 @@ public class UserBOIMPL implements UserBO {
             throw new RuntimeException(e);
         }
         return true;
+    }
+
+    @Override
+    public List<UserDto> getAllUsers() {
+        ArrayList<UserDto> userDtoList = new ArrayList<>();
+        List<User> allUsers = null;
+        try {
+            allUsers = userDAO.getAll();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        for (User user : allUsers) {
+            userDtoList.add(new UserDto(user.getUserId(), user.getFullName(), user.getEmail(), user.getPhoneNumber(), user.getAddress(), user.getUsername(), user.getPassword()));
+        }
+
+        return userDtoList;
     }
 }

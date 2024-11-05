@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Regex {
-    public static boolean isTextFieldValid(TextField textField, String text){
+    public static boolean isTextFieldValid(TextFields textField, String text){
         String filed = "";
 
         switch (textField){
@@ -72,7 +72,7 @@ public class Regex {
         return false;
     }
 
-    public static boolean setTextColor(TextField location, JFXTextField textField){
+    public static boolean setTextColor(TextFields location, JFXTextField textField){
         if (Regex.isTextFieldValid(location, textField.getText())){
             textField.setFocusColor(Paint.valueOf("Green"));
             textField.setUnFocusColor(Paint.valueOf("Green"));
@@ -85,7 +85,7 @@ public class Regex {
         }
     }
 
-    public static boolean setTextColor(TextField textField, JFXPasswordField passwordTxt) {
+    public static boolean setTextColor(TextFields textField, JFXPasswordField passwordTxt) {
         if (Regex.isTextFieldValid(textField, passwordTxt.getText())){
             passwordTxt.setFocusColor(Paint.valueOf("Green"));
             passwordTxt.setUnFocusColor(Paint.valueOf("Green"));
@@ -98,7 +98,7 @@ public class Regex {
         }
     }
 
-    public static boolean setTextColor(TextField textField, JFXTextArea contextText) {
+    public static boolean setTextColor(TextFields textField, JFXTextArea contextText) {
         if (Regex.isTextFieldValid(textField, contextText.getText())){
             contextText.setFocusColor(Paint.valueOf("Green"));
             contextText.setUnFocusColor(Paint.valueOf("Green"));

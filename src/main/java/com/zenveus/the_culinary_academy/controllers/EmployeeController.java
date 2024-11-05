@@ -3,9 +3,13 @@ package com.zenveus.the_culinary_academy.controllers;
 import com.zenveus.the_culinary_academy.bo.BOFactory;
 import com.zenveus.the_culinary_academy.bo.custom.UserBO;
 import com.zenveus.the_culinary_academy.dto.UserDto;
+import com.zenveus.the_culinary_academy.util.Regex;
+import com.zenveus.the_culinary_academy.util.TextFields;
+
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,6 +19,7 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class EmployeeController implements Initializable {
@@ -41,10 +46,35 @@ public class EmployeeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setTransition();
+        setEmployeeID();
     }
-    
-    
-//    side menu transition
+
+    private void setEmployeeID() {
+        String lastUser = getLastUserId();
+        employeeIDField.setText(lastUser);
+        employeeIDField.setDisable(true);
+    }
+
+    private String getLastUserId() {
+    List<UserDto> allUsers = userBO.getAllUsers();
+
+    if (allUsers.isEmpty()) {
+        return "U001";
+    }
+
+    String lastUserId = allUsers.get(allUsers.size() - 1).getUserId();
+    if (lastUserId == null || lastUserId.isEmpty() || !lastUserId.matches("U\\d+")) {
+        return "U001";
+    }
+
+    int id = Integer.parseInt(lastUserId.substring(1));
+    id++;
+
+    return String.format("U%03d", id);
+}
+
+
+    //    side menu transition
     private void setTransition() {
         sideTransition = new TranslateTransition(Duration.seconds(1.5), employeeRegMainAnchor);
         sideTransition.setFromX(0);
@@ -95,31 +125,122 @@ public class EmployeeController implements Initializable {
         String employeeName = employeeNameField.getText();
         String employeePhone = employeePhoneField.getText();
         String employeeAddress = employeeAddressField.getText();
+        String username = generateUsername(employeeName);
+        String password = generatePassword(employeeName);
 
         UserDto userDTO = new UserDto();
 
+        userDTO.setUserId(employeeID);
         userDTO.setFullName(employeeName);
         userDTO.setEmail(employeeEmail);
         userDTO.setPhoneNumber(employeePhone);
         userDTO.setAddress(employeeAddress);
 
-        userDTO.setUsername("admin");
-        userDTO.setPassword("admin");
+        userDTO.setUsername(username);
+        userDTO.setPassword(password);
 
         System.out.println(userDTO);
 
-        // apply Regexp to validate the email
+        if(!Regex.isTextFieldValid(TextFields.EMAIL, employeeEmail)){
+            new Alert(Alert.AlertType.WARNING, "Invalid Email!").showAndWait();
+            employeeEmailField.requestFocus();
+            return;
+        }
+
+        if(!Regex.isTextFieldValid(TextFields.CONTACT, employeePhone)){
+            new Alert(Alert.AlertType.WARNING, "Invalid Phone Number!").showAndWait();
+            employeePhoneField.requestFocus();
+            return;
+        }
+
+        // search and make sure no duplicate email
+        boolean isEmailExist = isEmailExist(employeeEmail);
+        if(isEmailExist){
+            new Alert(Alert.AlertType.WARNING, "Email Already Exist!").showAndWait();
+            employeeEmailField.requestFocus();
+            return;
+        }
+
+        // search and make sure no duplicate phone number
+        boolean isPhoneExist = isPhoneExist(employeePhone);
+        if(isPhoneExist){
+            new Alert(Alert.AlertType.WARNING, "Phone Number Already Exist!").showAndWait();
+            employeePhoneField.requestFocus();
+            return;
+        }
 
 
         try {
             boolean isAdded = userBO.addUser(userDTO);
-            System.out.println(isAdded);
+            if(isAdded){
+                new Alert(Alert.AlertType.INFORMATION, "Employee Added Successfully!").showAndWait();
+                setEmployeeID();
+                clearAllFields();
+            }else{
+                new Alert(Alert.AlertType.ERROR, "Failed to Add Employee!").showAndWait();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    private String generatePassword(String employeeName) {
+        String base = employeeName.split("\\s+")[0].toLowerCase();
+        int randomNum = (int) (Math.random() * 10000);
+        String specialChars = "!@#$%^&*";
+        char specialChar = specialChars.charAt((int) (Math.random() * specialChars.length()));
+
+        return base + randomNum + specialChar;
+    }
+    private String generateUsername(String employeeName) {
+        // username is the first word of the full name
+        return employeeName.split("\\s+")[0].toLowerCase();
+    }
+
+    private boolean isPhoneExist(String employeePhone) {
+        // search and make sure no duplicate phone number
+        List<UserDto> existingUsers = userBO.getAllUsers();
+
+        for (UserDto userDto : existingUsers) {
+            if(userDto.getPhoneNumber().equals(employeePhone)){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean isEmailExist(String employeeEmail) {
+        // search and make sure no duplicate email
+        List<UserDto> existingUsers = userBO.getAllUsers();
+
+        for (UserDto userDto : existingUsers) {
+            if(userDto.getEmail().equals(employeeEmail)){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    //clear all fields
+    public void clearAllFields(){
+        employeeEmailField.clear();
+        employeeNameField.clear();
+        employeePhoneField.clear();
+        employeeAddressField.clear();
+    }
+
     // employee update btn
     public void employeeUpdateBtn(ActionEvent actionEvent) {
         System.out.println("click employee update Btn");
+    }
+
+    public void loadAllEmployees(){
+
+    }
+
+    public void setCellValueFactories(){
+
     }
 }
