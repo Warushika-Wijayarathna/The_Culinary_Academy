@@ -17,7 +17,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long userId;
+    private String userId;
 
     @Column(name = "full_name", nullable = false)
     private String fullName;
@@ -31,18 +31,11 @@ public class User {
     @Column(name = "address", nullable = false)
     private String address;
 
-
-
-
-
     @Column(name = "username", unique = true, nullable = false)
     private String username;
 
     @Column(name = "password", nullable = false)
     private String password;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Payment> payments = new HashSet<>();
 
 }
 
