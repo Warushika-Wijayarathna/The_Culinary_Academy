@@ -3,6 +3,7 @@ package com.zenveus.the_culinary_academy.controllers;
 import com.zenveus.the_culinary_academy.bo.BOFactory;
 import com.zenveus.the_culinary_academy.bo.custom.UserBO;
 import com.zenveus.the_culinary_academy.dto.UserDto;
+import com.zenveus.the_culinary_academy.tm.UserTm;
 import com.zenveus.the_culinary_academy.util.Regex;
 import com.zenveus.the_culinary_academy.util.TextFields;
 
@@ -10,7 +11,10 @@ import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -37,6 +41,12 @@ public class EmployeeController implements Initializable {
     public TextField searchEmployee;
     // Employee Side Pane Title
     public Text sidePaneTitle;
+    public TableView<UserTm> userTable;
+    public TableColumn<?,?> colUsrId;
+    public TableColumn<?,?> colUsrName;
+    public TableColumn<?,?> colUsrEmail;
+    public TableColumn<?,?> colUsrPhone;
+    public TableColumn<?,?> colUsrAddress;
 
     private TranslateTransition sideTransition;
     private boolean isShow = false;
@@ -47,6 +57,8 @@ public class EmployeeController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setTransition();
         setEmployeeID();
+        setCellValueFactories();
+        loadAllEmployees();
     }
 
     private void setEmployeeID() {
@@ -237,10 +249,18 @@ public class EmployeeController implements Initializable {
     }
 
     public void loadAllEmployees(){
-
+        List<UserDto> allUsers = userBO.getAllUsers();
+        userTable.getItems().clear();
+        for (UserDto userDto : allUsers) {
+            userTable.getItems().add(new UserTm(userDto.getUserId(), userDto.getFullName(), userDto.getEmail(), userDto.getPhoneNumber(), userDto.getAddress()));
+        }
     }
 
     public void setCellValueFactories(){
-
+        colUsrId.setCellValueFactory(new PropertyValueFactory<>("userId"));
+        colUsrName.setCellValueFactory(new PropertyValueFactory<>("fullName"));
+        colUsrEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        colUsrPhone.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        colUsrAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
     }
 }
