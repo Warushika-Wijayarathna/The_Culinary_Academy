@@ -4,22 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b22353d1-bde8-4fed-bb32-65d30ec151fe" name="Changes" comment="user improvements">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/tm/ProgramTm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/tm/StudentTm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/08eb5e5e-65d5-48a0-919c-d262fc6c2133.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/08eb5e5e-65d5-48a0-919c-d262fc6c2133.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/controllers/EmployeeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/controllers/EmployeeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/controllers/ProgramController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/controllers/ProgramController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/entity/Program.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/entity/Program.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/zenveus/the_culinary_academy/view/program.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/zenveus/the_culinary_academy/view/program.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/bo/custom/UserBO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/bo/custom/UserBO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/bo/custom/impl/UserBOIMPL.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/bo/custom/impl/UserBOIMPL.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/controllers/EmployeeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/controllers/EmployeeController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/controllers/ProgramController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/controllers/ProgramController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/dao/custom/impl/UserDAOImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/dao/custom/impl/UserDAOImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/entity/Program.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/entity/Program.class" afterDir="false" />
-    </list>
+    <list default="true" id="b22353d1-bde8-4fed-bb32-65d30ec151fe" name="Changes" comment="user improvements" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -144,7 +129,7 @@
       <workItem from="1730699653918" duration="7272000" />
       <workItem from="1730709158210" duration="7461000" />
       <workItem from="1730784583370" duration="1301000" />
-      <workItem from="1730786167972" duration="20910000" />
+      <workItem from="1730786167972" duration="21273000" />
     </task>
     <task id="LOCAL-00001" summary="u">
       <option name="closed" value="true" />
@@ -282,7 +267,23 @@
       <option name="project" value="LOCAL" />
       <updated>1730833055369</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="user improvements">
+      <option name="closed" value="true" />
+      <created>1730834737054</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1730834737054</updated>
+    </task>
+    <task id="LOCAL-00019" summary="user improvements">
+      <option name="closed" value="true" />
+      <created>1730834912703</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1730834912703</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
