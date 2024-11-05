@@ -61,4 +61,17 @@ public class UserBOIMPL implements UserBO {
         }
         return true;
     }
+
+    @Override
+    public UserDto isUserExist(UserDto userDto) {
+        try {
+            User user = (User) userDAO.exist(userDto.getUserId());
+            if (user != null) {
+                return new UserDto(user.getUserId(), user.getFullName(), user.getEmail(), user.getPhoneNumber(), user.getAddress(), user.getUsername(), user.getPassword());
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return userDto;
+    }
 }

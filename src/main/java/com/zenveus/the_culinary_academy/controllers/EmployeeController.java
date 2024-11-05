@@ -158,8 +158,6 @@ public class EmployeeController implements Initializable {
         searchEmployee.setText("");
     }
 
-    
-    
     // employee delete btn
     public void employeeDeleteBtn(ActionEvent actionEvent) {
         System.out.println("click employee delete Btn");
@@ -171,7 +169,14 @@ public class EmployeeController implements Initializable {
         user.setPhoneNumber(employeePhoneField.getText());
         user.setAddress(employeeAddressField.getText());
 
-        boolean isDeleted = userBO.deleteUser(user);
+        UserDto userDto = userBO.isUserExist(user);
+
+        if(userDto == null){
+            new Alert(Alert.AlertType.ERROR, "Employee Not Found!").showAndWait();
+            return;
+        }
+
+        boolean isDeleted = userBO.deleteUser(userDto);
 
         if(isDeleted){
             new Alert(Alert.AlertType.INFORMATION, "Employee Deleted Successfully!").showAndWait();

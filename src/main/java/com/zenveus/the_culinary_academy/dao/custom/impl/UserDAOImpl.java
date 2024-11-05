@@ -57,4 +57,14 @@ public class UserDAOImpl implements UserDAO {
 
         return list;
     }
+
+    @Override
+    public Object exist(String id) throws Exception {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        User user = session.get(User.class, id);
+        transaction.commit();
+
+        return user;
+    }
 }
