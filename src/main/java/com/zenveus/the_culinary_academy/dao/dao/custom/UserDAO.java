@@ -1,4 +1,4 @@
-package com.zenveus.the_culinary_academy.dao.custom;
+package com.zenveus.the_culinary_academy.dao.dao.custom;
 
 import com.zenveus.the_culinary_academy.dao.CrudDAO;
 import com.zenveus.the_culinary_academy.entity.User;

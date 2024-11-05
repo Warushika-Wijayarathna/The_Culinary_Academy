@@ -18,7 +18,6 @@ public class main {
         program.setProgramName("Diploma in Culinary Arts");
         program.setDuration("6 months");
         program.setFee(1500.00);
-        program.setStudentPrograms(new HashSet<>()); // Assuming no student programs initially
 
         session.save(program);
         session.getTransaction().commit();

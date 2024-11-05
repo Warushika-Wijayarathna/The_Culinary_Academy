@@ -1,4 +1,6 @@
-package com.zenveus.the_culinary_academy.dao;
+package com.zenveus.the_culinary_academy.dao.dao;
+
+import com.zenveus.the_culinary_academy.dao.SuperDAO;
 
 import java.util.List;
 

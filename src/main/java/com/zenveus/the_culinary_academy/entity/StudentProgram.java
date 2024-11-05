@@ -19,7 +19,7 @@ public class StudentProgram {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "student_program_id")
-    private String studentProgramId;
+    private Long studentProgramId;
 
     @ManyToOne
     @JoinColumn(name = "student_id", nullable = false)

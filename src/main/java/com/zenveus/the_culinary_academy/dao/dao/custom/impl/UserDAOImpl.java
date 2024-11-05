@@ -1,4 +1,4 @@
-package com.zenveus.the_culinary_academy.dao.custom.impl;
+package com.zenveus.the_culinary_academy.dao.dao.custom.impl;
 
 import com.zenveus.the_culinary_academy.config.FactoryConfiguration;
 import com.zenveus.the_culinary_academy.dao.custom.UserDAO;

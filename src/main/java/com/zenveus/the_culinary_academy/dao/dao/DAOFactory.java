@@ -1,5 +1,6 @@
-package com.zenveus.the_culinary_academy.dao;
+package com.zenveus.the_culinary_academy.dao.dao;
 
+import com.zenveus.the_culinary_academy.dao.SuperDAO;
 import com.zenveus.the_culinary_academy.dao.custom.impl.UserDAOImpl;
 
 public class DAOFactory {
