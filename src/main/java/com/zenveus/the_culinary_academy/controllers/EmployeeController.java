@@ -108,6 +108,9 @@ public class EmployeeController implements Initializable {
 
         System.out.println(userDTO);
 
+        // apply Regexp to validate the email
+
+
         try {
             boolean isAdded = userBO.addUser(userDTO);
             System.out.println(isAdded);
