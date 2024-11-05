@@ -15,6 +15,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -24,7 +26,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -121,14 +125,10 @@ public class EmployeeController implements Initializable {
     public void employeeBackBtn(ActionEvent actionEvent) {
         System.out.println("click employee page back Btn");
 
-        // LOAD DASHBOARD
+        // load dashboard page after clearing employeeRegMainAnchor
+        DashboardController dashboardController = new DashboardController();
+        dashboardController.loadDashboard(employeeRegMainAnchor);
 
-        try {
-            AnchorPane pane = FXMLLoader.load(getClass().getResource("/com/zenveus/the_culinary_academy/view/dashboard.fxml"));
-            employeeRegMainAnchor.getChildren().setAll(pane);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
     // employee search filed enter click (search bar)
     public void searchEmployeeClick(ActionEvent actionEvent) {

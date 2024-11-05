@@ -146,4 +146,21 @@ public class DashboardController {
         Platform.exit();
         System.exit(0);
     }
+
+    public void loadDashboard(AnchorPane container) {
+            try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/zenveus/the_culinary_academy/view/dashboard.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root, Color.TRANSPARENT);
+
+            Stage stage = (Stage)container.getScene().getWindow();
+
+            stage.setScene(scene);
+
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
