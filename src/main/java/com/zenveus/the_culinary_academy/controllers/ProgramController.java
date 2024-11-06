@@ -3,7 +3,10 @@ package com.zenveus.the_culinary_academy.controllers;
 import com.zenveus.the_culinary_academy.bo.BOFactory;
 import com.zenveus.the_culinary_academy.bo.custom.ProgramBO;
 import com.zenveus.the_culinary_academy.dto.ProgramDto;
+import com.zenveus.the_culinary_academy.entity.Program;
 import com.zenveus.the_culinary_academy.tm.ProgramTm;
+import com.zenveus.the_culinary_academy.util.Regex;
+import com.zenveus.the_culinary_academy.util.TextFields;
 import javafx.animation.TranslateTransition;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
@@ -51,6 +54,8 @@ public class ProgramController implements Initializable {
 
     private TranslateTransition sideTransition;
     private boolean isShow = false;
+
+    public ProgramTm selectedProgram;
 
 
     ObservableList<ProgramTm> observableList = FXCollections.observableArrayList();
@@ -163,6 +168,8 @@ public class ProgramController implements Initializable {
     // program search clear btn (search bar)
     public void searchProgramClearBtn(ActionEvent actionEvent) {
         System.out.println("click program create Btn");
+
+        searchEmployee.clear();
     }
 
     
@@ -171,19 +178,95 @@ public class ProgramController implements Initializable {
     // program delete btn
     public void programDeleteBtn(ActionEvent actionEvent) {
         System.out.println("click program delete Btn");
+
+        if (selectedProgram != null) {
+            try {
+                boolean isDeleted = programBo.deleteProgram(selectedProgram.getProgramId());
+                System.out.println(isDeleted);
+                if (isDeleted) {
+                    loadAllPrograms();
+                    setProgramID();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
     
     // program save btn
     public void programSaveBtn(ActionEvent actionEvent) {
         System.out.println("click program save Btn");
+
+        String programID = programIDField.getText();
+        String programName = programNameField.getText();
+        String programDuration = programDurationField.getText();
+        String programFee = programFeeField.getText();
+
+        ProgramDto programDto = new ProgramDto();
+
+        programDto.setProgramId(programID);
+        programDto.setProgramName(programName);
+        programDto.setDuration(programDuration);
+        programDto.setFee(Double.parseDouble(programFee));
+
+        System.out.println(programDto);
+
+        // validate fee using regex
+        if (!Regex.isTextFieldValid(TextFields.PRICE, programFee)) {
+            System.out.println("Invalid Fee");
+            return;
+        }
+
+        try {
+            boolean isAdded = programBo.addProgram(programDto);
+            System.out.println(isAdded);
+            if (isAdded) {
+                loadAllPrograms();
+                setProgramID();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // program update btn
     public void programUpdateBtn(ActionEvent actionEvent) {
         System.out.println("click program update Btn");
+
+        ProgramDto programDto = new ProgramDto();
+        programDto.setProgramId(programIDField.getText());
+        programDto.setProgramName(programNameField.getText());
+        programDto.setDuration(programDurationField.getText());
+        programDto.setFee(Double.parseDouble(programFeeField.getText()));
+
+        try {
+            boolean isUpdated = programBo.updateProgram(programDto);
+            System.out.println(isUpdated);
+            if (isUpdated) {
+                loadAllPrograms();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void rowClick(MouseEvent mouseEvent) {
         System.out.println("click program row");
+
+        if (programTable.getSelectionModel().getSelectedItem() != null) {
+            selectedProgram = programTable.getSelectionModel().getSelectedItem();
+            programIDField.setText(selectedProgram.getProgramId());
+            programNameField.setText(selectedProgram.getProgramName());
+            programDurationField.setText(selectedProgram.getDuration());
+            programFeeField.setText(selectedProgram.getFee());
+
+            if (isShow) {
+                isShow = !isShow;
+                sideTransition.setDuration(Duration.seconds(isShow ? 1.5 : 2));
+                sideTransition.setToX(isShow ? 550 : 0);
+                updateIcon();
+                sideTransition.play();
+            }
+        }
     }
 }

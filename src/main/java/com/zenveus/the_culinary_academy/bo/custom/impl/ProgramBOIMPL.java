@@ -29,4 +29,35 @@ public class ProgramBOIMPL implements ProgramBO {
 
         return programList;
     }
+
+    @Override
+    public boolean addProgram(ProgramDto programDto) {
+        try {
+            programDAO.add(new Program(programDto.getProgramId(), programDto.getProgramName(), programDto.getDuration(), programDto.getFee()));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean updateProgram(ProgramDto programDto) {
+        try {
+            programDAO.update(new Program(programDto.getProgramId(), programDto.getProgramName(), programDto.getDuration(), programDto.getFee()));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean deleteProgram(String programId) {
+        try {
+            programDAO.delete(programId);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return true;
+    }
 }

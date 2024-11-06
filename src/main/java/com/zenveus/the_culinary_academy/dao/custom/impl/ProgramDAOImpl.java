@@ -1,14 +1,22 @@
 package com.zenveus.the_culinary_academy.dao.custom.impl;
 
+import com.zenveus.the_culinary_academy.config.FactoryConfiguration;
 import com.zenveus.the_culinary_academy.dao.custom.ProgramDAO;
 import com.zenveus.the_culinary_academy.entity.Program;
+import org.hibernate.Session;
 
 import java.util.List;
 
 public class ProgramDAOImpl implements ProgramDAO {
     @Override
     public boolean add(Program entity) throws Exception {
-        return false;
+        Session session = FactoryConfiguration.getInstance().getSession();
+        session.getTransaction().begin();
+        session.save(entity);
+        session.getTransaction().commit();
+        session.close();
+
+        return true;
     }
 
     @Override
@@ -18,7 +26,13 @@ public class ProgramDAOImpl implements ProgramDAO {
 
     @Override
     public boolean update(Program entity) throws Exception {
-        return false;
+        Session session = FactoryConfiguration.getInstance().getSession();
+        session.getTransaction().begin();
+        session.update(entity);
+        session.getTransaction().commit();
+        session.close();
+
+        return true;
     }
 
     @Override
@@ -36,4 +50,13 @@ public class ProgramDAOImpl implements ProgramDAO {
         return null;
     }
 
+    @Override
+    public void delete(String programId) {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        session.getTransaction().begin();
+        Program program = session.get(Program.class, programId);
+        session.delete(program);
+        session.getTransaction().commit();
+        session.close();
+    }
 }

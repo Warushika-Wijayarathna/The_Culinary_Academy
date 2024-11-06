@@ -7,4 +7,10 @@ import java.util.List;
 
 public interface ProgramBO extends SuperBO {
     List<ProgramDto> getAllPrograms();
+
+    boolean addProgram(ProgramDto programDto);
+
+    boolean updateProgram(ProgramDto programDto);
+
+    boolean deleteProgram(String programId);
 }
