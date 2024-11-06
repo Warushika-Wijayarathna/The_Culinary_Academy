@@ -313,6 +313,36 @@ public class EmployeeController implements Initializable {
         user.setPhoneNumber(employeePhoneField.getText());
         user.setAddress(employeeAddressField.getText());
 
+
+
+        if(!Regex.isTextFieldValid(TextFields.EMAIL, user.getEmail())){
+            new Alert(Alert.AlertType.WARNING, "Invalid Email!").showAndWait();
+            employeeEmailField.requestFocus();
+            return;
+        }
+
+        if(!Regex.isTextFieldValid(TextFields.CONTACT, user.getPhoneNumber())){
+            new Alert(Alert.AlertType.WARNING, "Invalid Phone Number!").showAndWait();
+            employeePhoneField.requestFocus();
+            return;
+        }
+
+        // search and make sure no duplicate email
+        boolean isEmailExist = isEmailExist(user.getEmail());
+        if(isEmailExist){
+            new Alert(Alert.AlertType.WARNING, "Email Already Exist!").showAndWait();
+            employeeEmailField.requestFocus();
+            return;
+        }
+
+        // search and make sure no duplicate phone number
+        boolean isPhoneExist = isPhoneExist(user.getPhoneNumber());
+        if(isPhoneExist){
+            new Alert(Alert.AlertType.WARNING, "Phone Number Already Exist!").showAndWait();
+            employeePhoneField.requestFocus();
+            return;
+        }
+
         UserDto userExist = userBO.isUserExist(user);
 
 
