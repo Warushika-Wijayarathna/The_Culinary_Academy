@@ -306,7 +306,17 @@ public class EmployeeController implements Initializable {
     public void employeeUpdateBtn(ActionEvent actionEvent) {
         System.out.println("click employee update Btn");
 
-        boolean isUpdated = userBO.updateUser(new UserDto(selectedItem.getUserId(), selectedItem.getFullName(), selectedItem.getEmail(), selectedItem.getPhoneNumber(), selectedItem.getAddress(), selectedItem.getUserId(), selectedItem.getUserId()));
+        UserDto user = new UserDto();
+        user.setUserId(employeeIDField.getText());
+        user.setFullName(employeeNameField.getText());
+        user.setEmail(employeeEmailField.getText());
+        user.setPhoneNumber(employeePhoneField.getText());
+        user.setAddress(employeeAddressField.getText());
+
+        UserDto userExist = userBO.isUserExist(user);
+
+
+        boolean isUpdated = userBO.updateUser(userExist.);
         if(isUpdated){
             new Alert(Alert.AlertType.INFORMATION, "Employee Updated Successfully!").showAndWait();
             setEmployeeID();
