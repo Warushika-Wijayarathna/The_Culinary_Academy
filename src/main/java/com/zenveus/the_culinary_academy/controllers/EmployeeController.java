@@ -316,7 +316,7 @@ public class EmployeeController implements Initializable {
         UserDto userExist = userBO.isUserExist(user);
 
 
-        boolean isUpdated = userBO.updateUser(userExist.);
+        boolean isUpdated = userBO.updateUser(userExist);
         if(isUpdated){
             new Alert(Alert.AlertType.INFORMATION, "Employee Updated Successfully!").showAndWait();
             setEmployeeID();
