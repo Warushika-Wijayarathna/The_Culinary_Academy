@@ -239,6 +239,12 @@ public class ProgramController implements Initializable {
         programDto.setDuration(programDurationField.getText());
         programDto.setFee(Double.parseDouble(programFeeField.getText()));
 
+        // validate fee using regex
+        if (!Regex.isTextFieldValid(TextFields.PRICE, programFeeField.getText())) {
+            System.out.println("Invalid Fee");
+            return;
+        }
+
         try {
             boolean isUpdated = programBo.updateProgram(programDto);
             System.out.println(isUpdated);
