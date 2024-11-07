@@ -3,6 +3,7 @@ package com.zenveus.the_culinary_academy.controllers;
 import com.zenveus.the_culinary_academy.bo.BOFactory;
 import com.zenveus.the_culinary_academy.bo.custom.UserBO;
 import com.zenveus.the_culinary_academy.dto.UserDto;
+import com.zenveus.the_culinary_academy.util.BCryptHasher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,11 +17,13 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 public class LoginController {
     public AnchorPane rootNode;
 
     static UserDto loginUser;
+    static String userPassword;
 
     public static UserDto getLoginUser() {
         return loginUser;
@@ -45,40 +48,49 @@ public class LoginController {
     @FXML
     private static Stage mainStage;
 
+    public static String getUserPassword() {
+        return userPassword;
+    }
+
+    public static void setUserPassword(String userPassword) {
+        LoginController.userPassword = userPassword;
+    }
+
     @FXML
     private void logBtn(ActionEvent event) throws IOException {
-        dashBord();
-//        List<UserDTO> userDTOList = userBO.getAllUsers();
-//
-//
-//
-//        String uName=uNameText.getText();
-//        String uPass=uPassText.getText();
-//
-//        for(UserDTO userDTO : userDTOList){
-//            System.out.println(userDTO);
-//
-//            if (uName.equals(userDTO.getUsername())){
-//
-//                if (BCryptHasher.verifyPassword(uPass, userDTO.getPassword())){
-//                    System.out.println("Go to dashBord");
-//
-//                    uNameText.clear();
-//                    uPassText.clear();
-//                    loginUser = userDTO;
-//                    dashBord();
-//                }else {
-//                    System.out.println("not password");
-//                    new Alert(Alert.AlertType.WARNING, "wrong User Password ");
-//
-//                }
-//
-//            }else {
-//                System.out.println("not id");
-//                new Alert(Alert.AlertType.WARNING, "wrong User ID ");
-//
-//            }
-//        }
+//        dashBord();
+        List<UserDto> userDTOList = userBO.getAllUsers();
+
+
+
+        String uName=uNameText.getText();
+        String uPass=uPassText.getText();
+
+        for(UserDto userDTO : userDTOList){
+            System.out.println(userDTO);
+
+            if (uName.equals(userDTO.getUsername())){
+
+                if (BCryptHasher.verifyPassword(uPass, userDTO.getPassword())){
+                    System.out.println("Go to dashBord");
+
+                    uNameText.clear();
+                    uPassText.clear();
+                    loginUser = userDTO;
+                    userPassword = uPass;
+                    dashBord();
+                }else {
+                    System.out.println("not password");
+                    new Alert(Alert.AlertType.WARNING, "wrong User Password ");
+
+                }
+
+            }else {
+                System.out.println("not id");
+                new Alert(Alert.AlertType.WARNING, "wrong User ID ");
+
+            }
+        }
 
     }
     void printAlert(String content){
