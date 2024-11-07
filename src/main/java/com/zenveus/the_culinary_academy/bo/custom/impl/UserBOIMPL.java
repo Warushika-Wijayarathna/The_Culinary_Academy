@@ -18,7 +18,7 @@ public class UserBOIMPL implements UserBO {
     @Override
     public boolean addUser(UserDto userDto) throws Exception {
         try {
-            userDAO.add(new User(userDto.getUserId(), userDto.getFullName(), userDto.getEmail(), userDto.getPhoneNumber(), userDto.getAddress(), userDto.getUsername(), userDto.getPassword()));
+            userDAO.add(new User(userDto.getUserId(), userDto.getFullName(), userDto.getEmail(), userDto.getPhoneNumber(), userDto.getAddress(), userDto.getJobRole(), userDto.getUsername(), userDto.getPassword()));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -36,7 +36,7 @@ public class UserBOIMPL implements UserBO {
         }
 
         for (User user : allUsers) {
-            userDtoList.add(new UserDto(user.getUserId(), user.getFullName(), user.getEmail(), user.getPhoneNumber(), user.getAddress(), user.getUsername(), user.getPassword()));
+            userDtoList.add(new UserDto(user.getUserId(), user.getFullName(), user.getEmail(), user.getPhoneNumber(), user.getAddress(), user.getJobRole(), user.getUsername(), user.getPassword()));
         }
 
         return userDtoList;
@@ -45,7 +45,7 @@ public class UserBOIMPL implements UserBO {
     @Override
     public boolean updateUser(UserDto userDto) {
         try {
-            userDAO.update(new User(userDto.getUserId(), userDto.getFullName(), userDto.getEmail(), userDto.getPhoneNumber(), userDto.getAddress(), userDto.getUsername(), userDto.getPassword()));
+            userDAO.update(new User(userDto.getUserId(), userDto.getFullName(), userDto.getEmail(), userDto.getPhoneNumber(), userDto.getAddress(), userDto.getJobRole(), userDto.getUsername(), userDto.getPassword()));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -55,7 +55,7 @@ public class UserBOIMPL implements UserBO {
     @Override
     public boolean deleteUser(UserDto userDto) {
         try {
-            userDAO.delete(new User(userDto.getUserId(), userDto.getFullName(), userDto.getEmail(), userDto.getPhoneNumber(), userDto.getAddress(), userDto.getUsername(), userDto.getPassword()));
+            userDAO.delete(new User(userDto.getUserId(), userDto.getFullName(), userDto.getEmail(), userDto.getPhoneNumber(), userDto.getAddress(), userDto.getJobRole(), userDto.getUsername(), userDto.getPassword()));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -67,7 +67,7 @@ public class UserBOIMPL implements UserBO {
         try {
             User user = (User) userDAO.exist(userDto.getUserId());
             if (user != null) {
-                return new UserDto(user.getUserId(), user.getFullName(), user.getEmail(), user.getPhoneNumber(), user.getAddress(), user.getUsername(), user.getPassword());
+                return new UserDto(user.getUserId(), user.getFullName(), user.getEmail(), user.getPhoneNumber(), user.getAddress(), user.getJobRole(), user.getUsername(), user.getPassword());
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

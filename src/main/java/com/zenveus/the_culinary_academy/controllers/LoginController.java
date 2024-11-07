@@ -1,7 +1,8 @@
 package com.zenveus.the_culinary_academy.controllers;
 
-import com.zenveus.the_culinary_academy.config.FactoryConfiguration;
-import com.zenveus.the_culinary_academy.entity.Student;
+import com.zenveus.the_culinary_academy.bo.BOFactory;
+import com.zenveus.the_culinary_academy.bo.custom.UserBO;
+import com.zenveus.the_culinary_academy.dto.UserDto;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,56 +11,74 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 import java.io.IOException;
 
 public class LoginController {
     public AnchorPane rootNode;
-    private String name="admin";
-    private String pass="admin";
+
+    static UserDto loginUser;
+
+    public static UserDto getLoginUser() {
+        return loginUser;
+    }
+
+    public void setLoginUser(UserDto loginUser) {
+        this.loginUser = loginUser;
+    }
+
+    private boolean isPasswordVisible = false;  // Track visibility state
+
+    UserBO userBO = (UserBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.USER);
+
 
     @FXML
     private TextField uNameText;
 
     @FXML
     private PasswordField uPassText;
-
+    @FXML
+    public TextField uPassVisibleText;
     @FXML
     private static Stage mainStage;
 
     @FXML
     private void logBtn(ActionEvent event) throws IOException {
-        String uName=uNameText.getText();
-        String uPass=uPassText.getText();
-
-        if (true /*!uName.isEmpty() && !uPass.isEmpty()*/){
-
-            if (true /*uName.equals(this.name) && uPass.equals(this.pass)*/ ) {
-
-                System.out.println("Go to dashBord");
-
-                uNameText.setText("");
-                uPassText.setText("");
-
-
-                dashBord();
-
-
-
-            }else{
-                printAlert("Invalied UserName or Password!");
-
-            }
-        }else{
-            printAlert("Not fill UserName or Password!");
-        }
+        dashBord();
+//        List<UserDTO> userDTOList = userBO.getAllUsers();
+//
+//
+//
+//        String uName=uNameText.getText();
+//        String uPass=uPassText.getText();
+//
+//        for(UserDTO userDTO : userDTOList){
+//            System.out.println(userDTO);
+//
+//            if (uName.equals(userDTO.getUsername())){
+//
+//                if (BCryptHasher.verifyPassword(uPass, userDTO.getPassword())){
+//                    System.out.println("Go to dashBord");
+//
+//                    uNameText.clear();
+//                    uPassText.clear();
+//                    loginUser = userDTO;
+//                    dashBord();
+//                }else {
+//                    System.out.println("not password");
+//                    new Alert(Alert.AlertType.WARNING, "wrong User Password ");
+//
+//                }
+//
+//            }else {
+//                System.out.println("not id");
+//                new Alert(Alert.AlertType.WARNING, "wrong User ID ");
+//
+//            }
+//        }
 
     }
     void printAlert(String content){
@@ -86,4 +105,19 @@ public class LoginController {
 
     }
 
+    public void passwordShowBtn(ActionEvent actionEvent) {
+        if (isPasswordVisible) {
+            // Hide password
+            uPassText.setText(uPassVisibleText.getText());
+            uPassText.setVisible(true);
+            uPassVisibleText.setVisible(false);
+        } else {
+            // Show password
+            uPassVisibleText.setText(uPassText.getText());
+            uPassVisibleText.setVisible(true);
+            uPassText.setVisible(false);
+
+        }
+        isPasswordVisible = !isPasswordVisible;
+    }
 }

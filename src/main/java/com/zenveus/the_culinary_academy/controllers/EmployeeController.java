@@ -1,10 +1,12 @@
 package com.zenveus.the_culinary_academy.controllers;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.zenveus.the_culinary_academy.bo.BOFactory;
 import com.zenveus.the_culinary_academy.bo.custom.UserBO;
 import com.zenveus.the_culinary_academy.dto.UserDto;
 import com.zenveus.the_culinary_academy.tm.UserTm;
+import com.zenveus.the_culinary_academy.util.BCryptHasher;
 import com.zenveus.the_culinary_academy.util.Regex;
 import com.zenveus.the_culinary_academy.util.TextFields;
 
@@ -58,6 +60,7 @@ public class EmployeeController implements Initializable {
     public TableColumn<?,?> colUsrEmail;
     public TableColumn<?,?> colUsrPhone;
     public TableColumn<?, ?> colUsrAddress;
+    public JFXComboBox<String> userJob;
     public UserTm selectedItem;
     private TranslateTransition sideTransition;
     private boolean isShow = false;
@@ -71,6 +74,11 @@ public class EmployeeController implements Initializable {
         setEmployeeID();
         setCellValueFactories();
         loadAllEmployees();
+        setComboBox();
+    }
+
+    private void setComboBox() {
+        userJob.getItems().addAll("Admin", "Coordinator");
     }
 
     private void setEmployeeID() {
@@ -167,6 +175,7 @@ public class EmployeeController implements Initializable {
         user.setEmail(employeeEmailField.getText());
         user.setPhoneNumber(employeePhoneField.getText());
         user.setAddress(employeeAddressField.getText());
+        user.setJobRole(userJob.getValue());
 
         UserDto userDto = userBO.isUserExist(user);
 
@@ -197,6 +206,8 @@ public class EmployeeController implements Initializable {
         String employeeAddress = employeeAddressField.getText();
         String username = generateUsername(employeeName);
         String password = generatePassword(employeeName);
+        String jobRole = userJob.getValue();
+
 
         UserDto userDTO = new UserDto();
 
@@ -205,6 +216,7 @@ public class EmployeeController implements Initializable {
         userDTO.setEmail(employeeEmail);
         userDTO.setPhoneNumber(employeePhone);
         userDTO.setAddress(employeeAddress);
+        userDTO.setJobRole(jobRole);
 
         userDTO.setUsername(username);
         userDTO.setPassword(password);
@@ -261,7 +273,8 @@ public class EmployeeController implements Initializable {
         String specialChars = "!@#$%^&*";
         char specialChar = specialChars.charAt((int) (Math.random() * specialChars.length()));
 
-        return base + randomNum + specialChar;
+        String password = base + randomNum + specialChar;
+        return BCryptHasher.hashPassword(password);
     }
     private String generateUsername(String employeeName) {
         // username is the first word of the full name
@@ -312,6 +325,7 @@ public class EmployeeController implements Initializable {
         user.setEmail(employeeEmailField.getText());
         user.setPhoneNumber(employeePhoneField.getText());
         user.setAddress(employeeAddressField.getText());
+        user.setJobRole(userJob.getValue());
 
 
 
@@ -381,17 +395,29 @@ public class EmployeeController implements Initializable {
 
     public void rowClick(MouseEvent mouseEvent) {
         System.out.println("click row");
+
+        List<UserDto> userDTOList = userBO.getAllUsers();
+        UserDto selectUser = null;
+
         if (userTable.getSelectionModel().getSelectedItem() != null) {
             selectedItem = userTable.getSelectionModel().getSelectedItem();
             employeeIDField.setText(selectedItem.getUserId());
+
+            for (UserDto userDTO : userDTOList){
+                if (userDTO.getUserId().equals(selectedItem.getUserId())){
+                    selectUser = userDTO;
+                }
+            }
             employeeNameField.setText(selectedItem.getFullName());
             employeeEmailField.setText(selectedItem.getEmail());
             employeePhoneField.setText(selectedItem.getPhoneNumber());
             employeeAddressField.setText(selectedItem.getAddress());
+            assert selectUser != null;
+            userJob.setValue(selectUser.getJobRole());
 
             if(isShow){
-                isShow = !isShow;
-                sideTransition.setDuration(Duration.seconds(isShow ? 1.5 : 2));
+                isShow = false;
+                sideTransition.setDuration(Duration.seconds(2));
                 sideTransition.setToX(isShow ? 550 : 0);
                 updateIcon();
                 sideTransition.play();

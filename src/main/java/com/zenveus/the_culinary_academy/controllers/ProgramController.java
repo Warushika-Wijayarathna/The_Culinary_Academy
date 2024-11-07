@@ -186,6 +186,7 @@ public class ProgramController implements Initializable {
                 if (isDeleted) {
                     loadAllPrograms();
                     setProgramID();
+                    clearFields();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -223,6 +224,7 @@ public class ProgramController implements Initializable {
             if (isAdded) {
                 loadAllPrograms();
                 setProgramID();
+                clearFields();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -250,6 +252,8 @@ public class ProgramController implements Initializable {
             System.out.println(isUpdated);
             if (isUpdated) {
                 loadAllPrograms();
+                clearFields();
+                setProgramID();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -274,5 +278,11 @@ public class ProgramController implements Initializable {
                 sideTransition.play();
             }
         }
+    }
+
+    public void clearFields() {
+        programNameField.clear();
+        programDurationField.clear();
+        programFeeField.clear();
     }
 }

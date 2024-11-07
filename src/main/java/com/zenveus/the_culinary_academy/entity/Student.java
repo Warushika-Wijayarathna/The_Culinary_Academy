@@ -49,8 +49,5 @@ public class Student {
     @Column(name = "registration_time")
     private LocalTime registrationTime;
 
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
-    private Set<StudentProgram> studentPrograms = new HashSet<>();
-
 }
 

@@ -8,6 +8,7 @@ module com.zenveus.the_culinary_academy {
     requires org.hibernate.orm.core;
     requires java.naming;
     requires com.jfoenix;
+    requires spring.security.crypto;
 
     opens com.zenveus.the_culinary_academy to javafx.fxml;
     exports com.zenveus.the_culinary_academy;

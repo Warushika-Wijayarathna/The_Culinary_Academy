@@ -1,25 +1,142 @@
 package com.zenveus.the_culinary_academy.controllers;
 
+import com.zenveus.the_culinary_academy.dto.UserDto;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class DashboardController {
+public class DashboardController implements Initializable {
 
 
     public AnchorPane mainContainer;
-    public Text title;
+    public LineChart<String, Number> paymentLineChart;
+    public Text programCount;
+    public Text studentCount;
+    public Text codinatorCount;
 
-    //
+    public PieChart studentPieChart;
+    public PieChart programPieChart;
+    public Text wellcomeText;
+    public Text date;
+
+    public Button dashboardBtn;
+    public Button studentBtn;
+    public Button employeeBtn;
+    public Button programBtn;
+    public Button myAccountBtn;
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        setWellcomeAndDate();
+        setChartData();
+        setCounts();
+        setToolTip();
+        getLoginUser();
+    }
+
+    private void getLoginUser() {
+        UserDto userDTO = LoginController.getLoginUser();
+
+        if (userDTO != null){
+            if (userDTO.getJobRole().equals("Admin")){
+                wellcomeText.setText("Welcome, admin");
+            }else if (userDTO.getJobRole().equals("Coordinator")){
+                wellcomeText.setText("Welcome, Coordinator");
+                employeeBtn.setOnAction(event -> {
+                    // No action or show a message indicating restricted access
+                });
+
+                employeeBtn.setOpacity(0.5); // Appears disabled
+                Tooltip.install(employeeBtn, new Tooltip("No access for Coordinator"));
+            }else{
+                System.out.println("user not found !!");
+            }
+        }else {
+            wellcomeText.setText("Welcome, admin");
+        }
+
+
+
+    }
+
+    private void setToolTip() {
+        Tooltip.install(dashboardBtn,new Tooltip("Dashboard"));
+        Tooltip.install(studentBtn, new Tooltip("Student"));
+        Tooltip.install(employeeBtn, new Tooltip("Employee"));
+        Tooltip.install(programBtn, new Tooltip("Program"));
+        Tooltip.install(myAccountBtn, new Tooltip("My Account"));
+    }
+
+    private void setWellcomeAndDate() {
+        wellcomeText.setText("Welcome, Admin");
+        date.setText(String.valueOf(java.time.LocalDate.now()));
+    }
+
+    private void setCounts() {
+        programCount.setText("5 Programs");
+        studentCount.setText("100 Students");
+        codinatorCount.setText("10 Coordinators");
+    }
+
+    private void setChartData() {
+        // Create a data series for payments
+        XYChart.Series<String, Number> paymentSeries = new XYChart.Series<>();
+        paymentSeries.setName("Monthly Payments");
+
+        // Add demo data (Month and Payment Amount)
+        paymentSeries.getData().add(new XYChart.Data<>("January", 150));
+        paymentSeries.getData().add(new XYChart.Data<>("February", 200));
+        paymentSeries.getData().add(new XYChart.Data<>("March", 180));
+        paymentSeries.getData().add(new XYChart.Data<>("April", 220));
+        paymentSeries.getData().add(new XYChart.Data<>("May", 240));
+        paymentSeries.getData().add(new XYChart.Data<>("June", 300));
+        paymentSeries.getData().add(new XYChart.Data<>("July", 280));
+        paymentSeries.getData().add(new XYChart.Data<>("August", 310));
+        paymentSeries.getData().add(new XYChart.Data<>("September", 270));
+        paymentSeries.getData().add(new XYChart.Data<>("October", 290));
+        paymentSeries.getData().add(new XYChart.Data<>("November", 320));
+        paymentSeries.getData().add(new XYChart.Data<>("December", 330));
+
+        paymentLineChart.getData().add(paymentSeries);
+
+//        pie chart
+        // Add demo data to the PieChart
+        PieChart.Data courseA = new PieChart.Data("Course A", 30);
+        PieChart.Data courseB = new PieChart.Data("Course B", 25);
+        PieChart.Data courseC = new PieChart.Data("Course C", 20);
+        PieChart.Data courseD = new PieChart.Data("Course D", 15);
+        PieChart.Data courseE = new PieChart.Data("Course E", 10);
+
+        studentPieChart.getData().addAll(courseA, courseB, courseC, courseD, courseE);
+
+        // Add demo data to the PieChart
+        PieChart.Data programA = new PieChart.Data("Culinary Arts", 40);
+        PieChart.Data programB = new PieChart.Data("Baking & Pastry", 25);
+        PieChart.Data programC = new PieChart.Data("Food Science", 15);
+        PieChart.Data programD = new PieChart.Data("Hospitality Management", 10);
+        PieChart.Data programE = new PieChart.Data("Nutrition", 10);
+
+        programPieChart.getData().addAll(programA, programB, programC, programD, programE);
+    }
+
     public void logOutBtn(ActionEvent actionEvent) {
         System.out.println("LogOut");
     }
@@ -147,13 +264,14 @@ public class DashboardController {
         System.exit(0);
     }
 
-    public void loadDashboard(AnchorPane container) {
-            try {
+
+    public void loadDashboard(AnchorPane employeeRegMainAnchor) {
+        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/zenveus/the_culinary_academy/view/dashboard.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root, Color.TRANSPARENT);
 
-            Stage stage = (Stage)container.getScene().getWindow();
+            Stage stage = (Stage)employeeRegMainAnchor.getScene().getWindow();
 
             stage.setScene(scene);
 

@@ -42,7 +42,13 @@ public class ProgramDAOImpl implements ProgramDAO {
 
     @Override
     public List<Program> getAll() throws Exception {
-        return null;
+        Session session = FactoryConfiguration.getInstance().getSession();
+        session.getTransaction().begin();
+        List<Program> programs = session.createQuery("from Program").list();
+        session.getTransaction().commit();
+        session.close();
+
+        return programs;
     }
 
     @Override

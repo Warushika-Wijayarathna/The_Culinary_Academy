@@ -1081,7 +1081,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="295" parent="1" name="culinary_academy">
-      <LastIntrospectionLocalTimestamp>2024-11-05.19:16:29</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-11-06.22:45:15</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="296" parent="1" name="gdse69">
@@ -1142,5 +1142,314 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     <user id="312" parent="1" name="root">
       <Host>localhost</Host>
     </user>
+    <table id="313" parent="295" name="payment">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="314" parent="295" name="program">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="315" parent="295" name="student">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="316" parent="295" name="student_program">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="317" parent="295" name="user">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <column id="318" parent="313" name="payment_id">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>bigint|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="319" parent="313" name="amount">
+      <DasType>double|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="320" parent="313" name="payment_date">
+      <DasType>date|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <column id="321" parent="313" name="payment_description">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>4</Position>
+    </column>
+    <column id="322" parent="313" name="student_id">
+      <DasType>bigint|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+    </column>
+    <column id="323" parent="313" name="student_program_id">
+      <DasType>bigint|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>6</Position>
+    </column>
+    <column id="324" parent="313" name="user_id">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>7</Position>
+    </column>
+    <foreign-key id="325" parent="313" name="FKq0mpbhvyrwyggk1gwjams69wf">
+      <ColNames>student_id</ColNames>
+      <RefColNames>student_id</RefColNames>
+      <RefTableName>student</RefTableName>
+    </foreign-key>
+    <foreign-key id="326" parent="313" name="FKl81fxcsayo546ag8vtdvga5uu">
+      <ColNames>student_program_id</ColNames>
+      <RefColNames>student_program_id</RefColNames>
+      <RefTableName>student_program</RefTableName>
+    </foreign-key>
+    <foreign-key id="327" parent="313" name="FK4spfnm9si9dowsatcqs5or42i">
+      <ColNames>user_id</ColNames>
+      <RefColNames>user_id</RefColNames>
+      <RefTableName>user</RefTableName>
+    </foreign-key>
+    <index id="328" parent="313" name="PRIMARY">
+      <ColNames>payment_id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="329" parent="313" name="FKq0mpbhvyrwyggk1gwjams69wf">
+      <ColNames>student_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="330" parent="313" name="FKl81fxcsayo546ag8vtdvga5uu">
+      <ColNames>student_program_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="331" parent="313" name="FK4spfnm9si9dowsatcqs5or42i">
+      <ColNames>user_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="332" parent="313" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="333" parent="314" name="program_id">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="334" parent="314" name="duration">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="335" parent="314" name="fee">
+      <DasType>double|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="336" parent="314" name="program_name">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <index id="337" parent="314" name="PRIMARY">
+      <ColNames>program_id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="338" parent="314" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="339" parent="315" name="student_id">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>bigint|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="340" parent="315" name="address">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="341" parent="315" name="dob">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="342" parent="315" name="email">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <column id="343" parent="315" name="full_name">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+    </column>
+    <column id="344" parent="315" name="phone">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>6</Position>
+    </column>
+    <column id="345" parent="315" name="registration_date">
+      <DasType>date|0s</DasType>
+      <Position>7</Position>
+    </column>
+    <column id="346" parent="315" name="registration_time">
+      <DasType>time(6)|0s</DasType>
+      <Position>8</Position>
+    </column>
+    <column id="347" parent="315" name="remaining_balance">
+      <DasType>double|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>9</Position>
+    </column>
+    <column id="348" parent="315" name="student_nic">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>10</Position>
+    </column>
+    <index id="349" parent="315" name="PRIMARY">
+      <ColNames>student_id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="350" parent="315" name="UK_fe0i52si7ybu0wjedj6motiim">
+      <ColNames>email</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="351" parent="315" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <key id="352" parent="315" name="UK_fe0i52si7ybu0wjedj6motiim">
+      <UnderlyingIndexName>UK_fe0i52si7ybu0wjedj6motiim</UnderlyingIndexName>
+    </key>
+    <column id="353" parent="316" name="student_program_id">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>bigint|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="354" parent="316" name="date">
+      <DasType>date|0s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="355" parent="316" name="time">
+      <DasType>time(6)|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <column id="356" parent="316" name="program_id">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <column id="357" parent="316" name="student_id">
+      <DasType>bigint|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+    </column>
+    <foreign-key id="358" parent="316" name="FKqlsb9qs5t3g8wymbiknuq9jr4">
+      <ColNames>program_id</ColNames>
+      <RefColNames>program_id</RefColNames>
+      <RefTableName>program</RefTableName>
+    </foreign-key>
+    <foreign-key id="359" parent="316" name="FKpyb45wmyb8emc73rodfhhnirk">
+      <ColNames>student_id</ColNames>
+      <RefColNames>student_id</RefColNames>
+      <RefTableName>student</RefTableName>
+    </foreign-key>
+    <index id="360" parent="316" name="PRIMARY">
+      <ColNames>student_program_id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="361" parent="316" name="FKqlsb9qs5t3g8wymbiknuq9jr4">
+      <ColNames>program_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="362" parent="316" name="FKpyb45wmyb8emc73rodfhhnirk">
+      <ColNames>student_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="363" parent="316" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="364" parent="317" name="user_id">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="365" parent="317" name="address">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="366" parent="317" name="email">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="367" parent="317" name="full_name">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <column id="368" parent="317" name="password">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+    </column>
+    <column id="369" parent="317" name="phone_number">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>6</Position>
+    </column>
+    <column id="370" parent="317" name="username">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>7</Position>
+    </column>
+    <index id="371" parent="317" name="PRIMARY">
+      <ColNames>user_id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="372" parent="317" name="UK_ob8kqyqqgmefl0aco34akdtpe">
+      <ColNames>email</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="373" parent="317" name="UK_4bgmpi98dylab6qdvf9xyaxu4">
+      <ColNames>phone_number</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="374" parent="317" name="UK_sb8bbouer5wak8vyiiy4pf2bx">
+      <ColNames>username</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="375" parent="317" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <key id="376" parent="317" name="UK_ob8kqyqqgmefl0aco34akdtpe">
+      <UnderlyingIndexName>UK_ob8kqyqqgmefl0aco34akdtpe</UnderlyingIndexName>
+    </key>
+    <key id="377" parent="317" name="UK_4bgmpi98dylab6qdvf9xyaxu4">
+      <UnderlyingIndexName>UK_4bgmpi98dylab6qdvf9xyaxu4</UnderlyingIndexName>
+    </key>
+    <key id="378" parent="317" name="UK_sb8bbouer5wak8vyiiy4pf2bx">
+      <UnderlyingIndexName>UK_sb8bbouer5wak8vyiiy4pf2bx</UnderlyingIndexName>
+    </key>
   </database-model>
 </dataSource>
