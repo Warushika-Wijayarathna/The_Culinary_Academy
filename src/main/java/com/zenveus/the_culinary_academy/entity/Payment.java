@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 
 @AllArgsConstructor
@@ -33,6 +34,9 @@ public class Payment {
 
     @Column(name = "payment_date")
     private LocalDate paymentDate;
+
+    @Column(name = "payment_time")
+    private LocalTime paymentTime;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

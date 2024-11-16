@@ -29,10 +29,15 @@ public class StudentProgram {
     @JoinColumn(name = "program_id", nullable = false)
     private Program program;
 
-    @Column(name = "date")
-    private LocalDate date;
+    @Column(name = "pay_option")
+    private String payOption;
 
-    @Column(name = "time")
-    private LocalTime time;
+    @Column(name = "installment_fee")
+    private double installmentFee;
 
+    @Column(name = "total_due")
+    private double totalDue;
+
+    @Column(name = "pay_status")
+    private String payStatus;
 }

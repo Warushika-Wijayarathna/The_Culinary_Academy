@@ -13,4 +13,6 @@ public interface ProgramBO extends SuperBO {
     boolean updateProgram(ProgramDto programDto);
 
     boolean deleteProgram(String programId);
+
+    ProgramDto getProgramDetails(String programId);
 }

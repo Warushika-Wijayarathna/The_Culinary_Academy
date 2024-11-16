@@ -53,7 +53,13 @@ public class ProgramDAOImpl implements ProgramDAO {
 
     @Override
     public Object exist(String id) throws Exception {
-        return null;
+        Session session = FactoryConfiguration.getInstance().getSession();
+        session.getTransaction().begin();
+        Program program = session.get(Program.class, id);
+        session.getTransaction().commit();
+        session.close();
+
+        return program;
     }
 
     @Override

@@ -5,7 +5,6 @@ import com.zenveus.the_culinary_academy.dao.DAOFactory;
 import com.zenveus.the_culinary_academy.dao.custom.ProgramDAO;
 import com.zenveus.the_culinary_academy.dto.ProgramDto;
 import com.zenveus.the_culinary_academy.entity.Program;
-import com.zenveus.the_culinary_academy.tm.ProgramTm;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +23,7 @@ public class ProgramBOIMPL implements ProgramBO {
         }
 
         for (Program program : allPrograms) {
-            programList.add(new ProgramDto());
+            programList.add(new ProgramDto(program.getProgramId(), program.getProgramName(), program.getDuration(), program.getFee()));
         }
 
         return programList;
@@ -59,5 +58,15 @@ public class ProgramBOIMPL implements ProgramBO {
         }
 
         return true;
+    }
+
+    @Override
+    public ProgramDto getProgramDetails(String programId) {
+        try {
+            Program program = (Program) programDAO.exist(programId);
+            return new ProgramDto(program.getProgramId(), program.getProgramName(), program.getDuration(), program.getFee());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

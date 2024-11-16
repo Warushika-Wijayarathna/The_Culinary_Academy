@@ -3,6 +3,7 @@ package com.zenveus.the_culinary_academy.controllers;
 import com.zenveus.the_culinary_academy.bo.BOFactory;
 import com.zenveus.the_culinary_academy.bo.custom.ProgramBO;
 import com.zenveus.the_culinary_academy.dto.ProgramDto;
+import com.zenveus.the_culinary_academy.dto.UserDto;
 import com.zenveus.the_culinary_academy.entity.Program;
 import com.zenveus.the_culinary_academy.tm.ProgramTm;
 import com.zenveus.the_culinary_academy.util.Regex;
@@ -12,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -90,26 +92,27 @@ public class ProgramController implements Initializable {
     }
 
     private void setProgramID() {
-        String lastProgramID = getLastProgramID();
-        programIDField.setText(lastProgramID);
-        programIDField.setDisable(true);
+        String lastProgramId = getLastProgramId();
+        programIDField.setText(lastProgramId);
+        programIDField.setEditable(true);
     }
 
-    private String getLastProgramID() {
+    private String getLastProgramId() {
         List<ProgramDto> allPrograms = programBo.getAllPrograms();
+
         if (allPrograms.isEmpty()) {
             return "P001";
-        } else {
-            String lastProgramID = allPrograms.get(allPrograms.size() - 1).getProgramId();
-            int newProgramID = Integer.parseInt(lastProgramID.substring(1)) + 1;
-            if (newProgramID < 10) {
-                return "P00" + newProgramID;
-            } else if (newProgramID < 100) {
-                return "P0" + newProgramID;
-            } else {
-                return "P" + newProgramID;
-            }
         }
+
+        String lastProgramId = allPrograms.get(allPrograms.size() - 1).getProgramId();
+        if (lastProgramId == null || lastProgramId.isEmpty() || !lastProgramId.matches("P\\d+")) {
+            return "P001";
+        }
+
+        int id = Integer.parseInt(lastProgramId.substring(1));
+        id++;
+
+        return String.format("P%03d", id);
     }
 
     private void setTransition() {
@@ -209,6 +212,12 @@ public class ProgramController implements Initializable {
         String programDuration = programDurationField.getText();
         String programFee = programFeeField.getText();
 
+        // validate fee using regex
+        if (!Regex.isTextFieldValid(TextFields.PRICE, programFee)) {
+            new Alert(Alert.AlertType.WARNING, "Invalid Fee!").showAndWait();
+            return;
+        }
+
         ProgramDto programDto = new ProgramDto();
 
         programDto.setProgramId(programID);
@@ -217,12 +226,6 @@ public class ProgramController implements Initializable {
         programDto.setFee(Double.parseDouble(programFee));
 
         System.out.println(programDto);
-
-        // validate fee using regex
-        if (!Regex.isTextFieldValid(TextFields.PRICE, programFee)) {
-            System.out.println("Invalid Fee");
-            return;
-        }
 
         try {
             boolean isAdded = programBo.addProgram(programDto);
