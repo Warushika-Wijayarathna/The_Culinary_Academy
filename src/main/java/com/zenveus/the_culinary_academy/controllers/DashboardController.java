@@ -139,7 +139,9 @@ public class DashboardController  implements Initializable {
 
         for (Object[] row : studentCourseCount) {
             String courseName = (String) row[0];
+            System.out.println("courseName = " + courseName);
             long count = (long) row[1];
+            System.out.println("count = " + count);
             studentPieChart.getData().add(new PieChart.Data(courseName, count));
         }
 
