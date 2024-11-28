@@ -139,7 +139,7 @@
             <Font name="System Bold" size="28.0" />
          </font>
       </Text>
-      <ComboBox fx:id="stuFillterComboBox" layoutX="25.0" layoutY="252.0" opacity="0.6" prefHeight="24.0" prefWidth="126.0" style="-fx-background-color: transpanent; -fx-border-color: black; -fx-background-radius: 10px; -fx-border-radius: 4px;" />
+      <ComboBox fx:id="stuFilterComboBox" onAction="#onFilterAction" layoutX="25.0" layoutY="252.0" opacity="0.6" prefHeight="24.0" prefWidth="126.0" style="-fx-background-color: transpanent; -fx-border-color: black; -fx-background-radius: 10px; -fx-border-radius: 4px;" />
    </AnchorPane>
    <AnchorPane layoutX="100.0" layoutY="19.0" prefHeight="45.0" prefWidth="865.0" style="-fx-background-color: rgba(255, 255, 255, 0.3); -fx-background-radius: 50px;">
       <Button layoutX="5.0" layoutY="4.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" onAction="#studentBackBtn" style="-fx-background-color: rgba(0, 0, 0, 0.3); -fx-background-radius: 50%;" />

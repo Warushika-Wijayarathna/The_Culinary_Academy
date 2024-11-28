@@ -69,6 +69,7 @@ public class StudentController implements Initializable {
     public JFXComboBox paymentCombo;
     public PieChart studentPie2;
     public PieChart studentPie1;
+    public ComboBox stuFilterComboBox;
 
     private TranslateTransition sideTransition;
     private boolean isShow = false;
@@ -211,8 +212,14 @@ public class StudentController implements Initializable {
 
     private void setProgramComboBox() {
         List<ProgramDto> allPrograms = programbo.getAllPrograms();
+
+        stuFilterComboBox.getItems().add("All Programs");
+
+        // make All programs the default selected item
+        stuFilterComboBox.setValue("All Programs");
         for (ProgramDto program : allPrograms) {
             programCombo.getItems().add(program.getProgramId() + " - " + program.getProgramName());
+            stuFilterComboBox.getItems().add(program.getProgramName());
         }
     }
 
@@ -430,6 +437,23 @@ public class StudentController implements Initializable {
 
         if (isSaved) {
             new Alert(Alert.AlertType.INFORMATION, "Student saved successfully.").show();
+
+            // Clear the fields after saving
+            studentIDField.clear();
+            studentNameField.clear();
+            studentNICField.clear();
+            studentDOBField.setValue(null);
+            studentPhoneField.clear();
+            studentEmailField.clear();
+            studentAddressField.clear();
+            selectProgramShow.clear();
+            paymentDetailsTxtArea.clear();
+            paymentCombo.getItems().clear();
+            programCombo.setValue(null);
+            payOptionCombo.setValue(null);
+            setStudentID();
+            loadAllStudents();
+
         } else {
             new Alert(Alert.AlertType.ERROR, "Failed to save student.").show();
         }
@@ -593,8 +617,21 @@ public class StudentController implements Initializable {
 
         try {
             boolean isUpdated = studentbo.updateStudentAndPrograms(studentDto, programDetailsList, Total);
-            // Reinitialize the controller
-            initialize(null, null);
+            // Clear the fields after saving
+            studentIDField.clear();
+            studentNameField.clear();
+            studentNICField.clear();
+            studentDOBField.setValue(null);
+            studentPhoneField.clear();
+            studentEmailField.clear();
+            studentAddressField.clear();
+            selectProgramShow.clear();
+            paymentDetailsTxtArea.clear();
+            paymentCombo.getItems().clear();
+            programCombo.setValue(null);
+            payOptionCombo.setValue(null);
+            setStudentID();
+            loadAllStudents();
 
             new Alert(Alert.AlertType.INFORMATION, "Student updated successfully.").show();
         } catch (Exception e) {
@@ -730,5 +767,31 @@ public class StudentController implements Initializable {
         LocalDate birthDate = LocalDate.parse(dob);
         LocalDate currentDate = LocalDate.now();
         return String.valueOf(currentDate.getYear() - birthDate.getYear());
+    }
+
+    public void onFilterAction(ActionEvent event) {
+        String selectedProgram = stuFilterComboBox.getValue().toString();
+        // if the selected program is "All Programs" then load all students
+        if (selectedProgram.equals("All Programs")) {
+            loadAllStudents();
+            return;
+        }
+        List<StudentDto> allStudents = studentbo.getAllStudents();
+        observableList.clear();
+
+        List<Object[]> filteredStudents = studentbo.getStudentsByProgram(selectedProgram);
+
+        // get the student IDs from the filtered students and the students with the matching studentid leave in the table
+
+        for (Object[] student : filteredStudents) {
+            for (StudentDto studentDto : allStudents) {
+                if (studentDto.getStudentId().equals(student[0])) {
+                    JFXButton btn = new JFXButton("Delete");
+                    observableList.add(new StudentTm(studentDto.getStudentId(), studentDto.getFullName(), studentDto.getStudentNic(), getAge(studentDto.getDob()), studentDto.getEmail(), studentDto.getPhone(), studentDto.getAddress(), btn));
+                }
+            }
+        }
+
+        studentTable.setItems(observableList);
     }
 }

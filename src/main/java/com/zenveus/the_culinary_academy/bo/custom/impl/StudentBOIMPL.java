@@ -374,4 +374,15 @@ public class StudentBOIMPL implements StudentBO {
         return isUpdated;
     }
 
+    @Override
+    public List<Object[]> getStudentsByProgram(String selectedProgram) {
+        List<Object[]> studentsByProgram = null;
+        try {
+            studentsByProgram = studentProgramDAO.getStudentsByProgram(selectedProgram);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return studentsByProgram;
+    }
+
 }
