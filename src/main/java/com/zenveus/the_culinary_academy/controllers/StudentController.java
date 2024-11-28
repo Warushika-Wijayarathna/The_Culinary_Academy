@@ -10,6 +10,8 @@ import com.zenveus.the_culinary_academy.dto.ProgramDto;
 import com.zenveus.the_culinary_academy.dto.StudentDto;
 import com.zenveus.the_culinary_academy.tm.ProgramTm;
 import com.zenveus.the_culinary_academy.tm.StudentTm;
+import com.zenveus.the_culinary_academy.util.Regex;
+import com.zenveus.the_culinary_academy.util.TextFields;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -287,11 +289,29 @@ public class StudentController implements Initializable {
     }
     // student search filed enter click (search bar)
     public void searchStudentClick(ActionEvent actionEvent) {
-        System.out.println("click student search filed");
+        System.out.println("click student search Btn");
+
+        String studentName = searchStudent.getText();
+
+        if (studentName.isEmpty()) {
+            loadAllStudents();
+            return;
+        }
+
+        List<StudentDto> allStudents = studentbo.getAllStudents();
+        observableList.clear();
+
+        for (StudentDto studentDto : allStudents) {
+            if (studentDto.getFullName().contains(studentName)) {
+                observableList.add(new StudentTm(studentDto.getStudentId(), studentDto.getFullName(), studentDto.getStudentNic(), getAge(studentDto.getDob()), studentDto.getEmail(), studentDto.getPhone(), studentDto.getAddress(), new JFXButton("Delete")));
+            }
+        }
+
+        studentTable.setItems(observableList);
     }
     // student search clear btn (search bar)
     public void searchStudentClearBtn(ActionEvent actionEvent) {
-        System.out.println("click student create Btn");
+        searchStudent.clear();
     }
 
 
@@ -306,6 +326,15 @@ public class StudentController implements Initializable {
     public void studentSaveBtn(ActionEvent actionEvent) {
         System.out.println("click student save Btn");
 
+        // no duplicate students
+        List<StudentDto> allStudents = studentbo.getAllStudents();
+        for (StudentDto student : allStudents) {
+            if (student.getStudentId().equals(studentIDField.getText())) {
+                new Alert(Alert.AlertType.ERROR, "Student ID already exists!").show();
+                return;
+            }
+        }
+
         String studentId = studentIDField.getText();
         String studentName = studentNameField.getText();
         String studentNIC = studentNICField.getText();
@@ -315,6 +344,49 @@ public class StudentController implements Initializable {
         String studentAddress = studentAddressField.getText();
         LocalDate registrationDate = LocalDate.now();
         LocalTime registrationTime = LocalTime.now();
+
+        // Validations
+
+        if (studentName.isEmpty() || studentNIC.isEmpty() || studentDOB.isEmpty() || studentPhone.isEmpty() || studentEmail.isEmpty() || studentAddress.isEmpty()) {
+            new Alert(Alert.AlertType.ERROR, "Please fill all the fields.").show();
+            return;
+        }
+
+        if (!Regex.isTextFieldValid(TextFields.EMAIL, studentEmail)) {
+            new Alert(Alert.AlertType.ERROR, "Invalid Email!").show();
+            return;
+        }
+
+        if (!Regex.isTextFieldValid(TextFields.CONTACT, studentPhone)) {
+            new Alert(Alert.AlertType.ERROR, "Invalid Phone Number!").show();
+            return;
+        }
+
+        if (!Regex.isTextFieldValid(TextFields.NIC, studentNIC)) {
+            new Alert(Alert.AlertType.ERROR, "Invalid NIC!").show();
+            return;
+        }
+
+        if (!Regex.isTextFieldValid(TextFields.NAME, studentName)) {
+            new Alert(Alert.AlertType.ERROR, "Invalid Name!").show();
+            return;
+        }
+
+        // no duplicate emails
+        for (StudentDto student : allStudents) {
+            if (student.getEmail().equals(studentEmail)) {
+                new Alert(Alert.AlertType.ERROR, "Email already exists!").show();
+                return;
+            }
+        }
+
+        // no duplicate phone numbers
+        for (StudentDto student : allStudents) {
+            if (student.getPhone().equals(studentPhone)) {
+                new Alert(Alert.AlertType.ERROR, "Phone number already exists!").show();
+                return;
+            }
+        }
 
         StudentDto studentDto = new StudentDto(studentId, studentNIC, studentDOB, studentName, studentAddress, studentEmail, studentPhone, registrationDate, registrationTime);
 
@@ -411,6 +483,50 @@ public class StudentController implements Initializable {
         String studentPhone = studentPhoneField.getText();
         String studentEmail = studentEmailField.getText();
         String studentAddress = studentAddressField.getText();
+
+        // Validations
+        List<StudentDto> allStudents = studentbo.getAllStudents();
+
+        if (studentName.isEmpty() || studentNIC.isEmpty() || studentDOB.isEmpty() || studentPhone.isEmpty() || studentEmail.isEmpty() || studentAddress.isEmpty()) {
+            new Alert(Alert.AlertType.ERROR, "Please fill all the fields.").show();
+            return;
+        }
+
+        if (!Regex.isTextFieldValid(TextFields.EMAIL, studentEmail)) {
+            new Alert(Alert.AlertType.ERROR, "Invalid Email!").show();
+            return;
+        }
+
+        if (!Regex.isTextFieldValid(TextFields.CONTACT, studentPhone)) {
+            new Alert(Alert.AlertType.ERROR, "Invalid Phone Number!").show();
+            return;
+        }
+
+        if (!Regex.isTextFieldValid(TextFields.NIC, studentNIC)) {
+            new Alert(Alert.AlertType.ERROR, "Invalid NIC!").show();
+            return;
+        }
+
+        if (!Regex.isTextFieldValid(TextFields.NAME, studentName)) {
+            new Alert(Alert.AlertType.ERROR, "Invalid Name!").show();
+            return;
+        }
+
+        // no duplicate emails
+        for (StudentDto student : allStudents) {
+            if (!student.getStudentId().equals(studentIDField.getText()) && student.getEmail().equals(studentEmail)) {
+                new Alert(Alert.AlertType.ERROR, "Email already exists!").show();
+                return;
+            }
+        }
+
+        // no duplicate phone numbers
+        for (StudentDto student : allStudents) {
+            if (!student.getStudentId().equals(studentIDField.getText()) && student.getPhone().equals(studentPhone)) {
+                new Alert(Alert.AlertType.ERROR, "Phone number already exists!").show();
+                return;
+            }
+        }
 
         StudentDto studentDto = new StudentDto();
         studentDto.setStudentId(studentId);

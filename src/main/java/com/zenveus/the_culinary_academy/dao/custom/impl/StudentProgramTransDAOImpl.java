@@ -52,4 +52,18 @@ public class StudentProgramTransDAOImpl implements StudentProgramTransDAO {
         return true;
     }
 
+    @Override
+    public List<Object[]> getStudentCourseCount() {
+        List<Object[]> studentCourseCount = null;
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        studentCourseCount = session.createQuery("SELECT p.programName, COUNT(sp.student.studentId) FROM StudentProgram sp JOIN sp.program p GROUP BY p.programName", Object[].class)
+                .list();
+        transaction.commit();
+        session.close();
+
+
+        return studentCourseCount;
+    }
+
 }

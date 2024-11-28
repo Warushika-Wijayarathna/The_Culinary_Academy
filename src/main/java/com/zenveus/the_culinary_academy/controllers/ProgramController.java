@@ -13,10 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -189,16 +186,23 @@ public class ProgramController implements Initializable {
         System.out.println("click program delete Btn");
 
         if (selectedProgram != null) {
-            try {
-                boolean isDeleted = programBo.deleteProgram(selectedProgram.getProgramId());
-                System.out.println(isDeleted);
-                if (isDeleted) {
-                    loadAllPrograms();
-                    setProgramID();
-                    clearFields();
+            Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this program?", ButtonType.YES, ButtonType.NO);
+            confirmationAlert.showAndWait();
+
+            if (confirmationAlert.getResult() == ButtonType.YES) {
+                try {
+                    boolean isDeleted = programBo.deleteProgram(selectedProgram.getProgramId());
+                    System.out.println(isDeleted);
+                    if (isDeleted) {
+                        loadAllPrograms();
+                        setProgramID();
+                        clearFields();
+                    }
+                    new Alert(Alert.AlertType.INFORMATION, "Program deleted successfully!").showAndWait();
+                } catch (Exception e) {
+                    new Alert(Alert.AlertType.ERROR, "Failed to delete program!").showAndWait();
+                    e.printStackTrace();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
         }
     }
@@ -235,7 +239,9 @@ public class ProgramController implements Initializable {
                 setProgramID();
                 clearFields();
             }
+            new Alert(Alert.AlertType.INFORMATION, "Program added successfully!").showAndWait();
         } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "Failed to add program!").showAndWait();
             e.printStackTrace();
         }
     }
@@ -264,7 +270,10 @@ public class ProgramController implements Initializable {
                 clearFields();
                 setProgramID();
             }
+
+            new Alert(Alert.AlertType.INFORMATION, "Program updated successfully!").showAndWait();
         } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "Failed to update program!").showAndWait();
             e.printStackTrace();
         }
     }

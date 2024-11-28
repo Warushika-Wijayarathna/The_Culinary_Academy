@@ -9,6 +9,7 @@ import com.zenveus.the_culinary_academy.tm.UserTm;
 import com.zenveus.the_culinary_academy.util.BCryptHasher;
 import com.zenveus.the_culinary_academy.util.Regex;
 import com.zenveus.the_culinary_academy.util.TextFields;
+import com.zenveus.the_culinary_academy.Exception.RegistrationException;
 
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
@@ -260,14 +261,16 @@ public class EmployeeController implements Initializable {
 
         try {
             boolean isAdded = userBO.addUser(userDTO);
-            if(isAdded){
+            if (isAdded) {
                 new Alert(Alert.AlertType.INFORMATION, "Employee Added Successfully!").showAndWait();
                 setEmployeeID();
                 clearAllFields();
                 loadAllEmployees();
-            }else{
+            } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to Add Employee!").showAndWait();
             }
+        } catch (RegistrationException e){
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
         } catch (Exception e) {
             e.printStackTrace();
         }

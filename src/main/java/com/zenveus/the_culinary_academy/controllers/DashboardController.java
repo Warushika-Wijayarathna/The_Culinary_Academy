@@ -1,6 +1,8 @@
 package com.zenveus.the_culinary_academy.controllers;
 
 import com.zenveus.the_culinary_academy.Launcher;
+import com.zenveus.the_culinary_academy.bo.BOFactory;
+import com.zenveus.the_culinary_academy.bo.custom.ChartBO;
 import com.zenveus.the_culinary_academy.dto.UserDto;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -22,6 +24,7 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class DashboardController  implements Initializable {
@@ -46,6 +49,8 @@ public class DashboardController  implements Initializable {
 
     Stage dashStage;
 
+
+    ChartBO chartBO = (ChartBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CHART);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -95,9 +100,14 @@ public class DashboardController  implements Initializable {
     }
 
     private void setCounts() {
-        programCount.setText("5 Programs");
-        studentCount.setText("100 Students");
-        codinatorCount.setText("10 Coordinators");
+        int proCount = chartBO.getProgramCount();
+        programCount.setText(proCount+" Programs");
+
+        int stuCount = chartBO.getStudentCount();
+        studentCount.setText(stuCount+" Students");
+
+        int coCount = chartBO.getCoordinatorCount();
+        codinatorCount.setText(coCount+" Coordinators");
     }
 
     private void setChartData() {
@@ -123,13 +133,15 @@ public class DashboardController  implements Initializable {
 
 //        pie chart
         // Add demo data to the PieChart
-        PieChart.Data courseA = new PieChart.Data("Course A", 30);
-        PieChart.Data courseB = new PieChart.Data("Course B", 25);
-        PieChart.Data courseC = new PieChart.Data("Course C", 20);
-        PieChart.Data courseD = new PieChart.Data("Course D", 15);
-        PieChart.Data courseE = new PieChart.Data("Course E", 10);
 
-        studentPieChart.getData().addAll(courseA, courseB, courseC, courseD, courseE);
+        // Get the student count for each course
+        List<Object[]> studentCourseCount = chartBO.getStudentCourseCount();
+
+        for (Object[] row : studentCourseCount) {
+            String courseName = (String) row[0];
+            long count = (long) row[1];
+            studentPieChart.getData().add(new PieChart.Data(courseName, count));
+        }
 
         // Add demo data to the PieChart
         PieChart.Data programA = new PieChart.Data("Culinary Arts", 40);

@@ -82,7 +82,7 @@
                            </font>
                         </Text>
                         <ImageView fitHeight="38.0" fitWidth="38.0" layoutX="12.0" layoutY="10.0" opacity="0.82">
-                           <Image url="@../image/icons/program-icon%20.png" />
+                           <Image url="@../image/icons/program-icon .png" />
                         </ImageView>
                         <Text fx:id="programCount" layoutX="46.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="78 Programs">
                            <font>
