@@ -57,7 +57,7 @@ public class StudentProgramTransDAOImpl implements StudentProgramTransDAO {
         List<Object[]> studentCourseCount = null;
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
-        studentCourseCount = session.createQuery("SELECT p.programName, COUNT(sp.student.studentId) FROM StudentProgram sp JOIN sp.program p GROUP BY p.programName", Object[].class)
+        studentCourseCount = session.createQuery("SELECT p.programId, COUNT(sp.student.studentId) FROM StudentProgram sp JOIN sp.program p GROUP BY p.programId", Object[].class)
                 .list();
         transaction.commit();
         session.close();

@@ -145,6 +145,8 @@ public class DashboardController  implements Initializable {
             studentPieChart.getData().add(new PieChart.Data(courseName, count));
         }
 
+
+
         // Add demo data to the PieChart
         PieChart.Data programA = new PieChart.Data("Culinary Arts", 40);
         PieChart.Data programB = new PieChart.Data("Baking & Pastry", 25);

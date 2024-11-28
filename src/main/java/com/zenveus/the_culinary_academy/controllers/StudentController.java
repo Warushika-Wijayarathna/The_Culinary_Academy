@@ -17,6 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -66,6 +67,8 @@ public class StudentController implements Initializable {
     public TableView<StudentTm> studentTable;
     public TableColumn<?,?> colAction;
     public JFXComboBox paymentCombo;
+    public PieChart studentPie2;
+    public PieChart studentPie1;
 
     private TranslateTransition sideTransition;
     private boolean isShow = false;
