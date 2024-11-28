@@ -17,7 +17,7 @@ public class StudentProgramTransDAOImpl implements StudentProgramTransDAO {
         Transaction transaction = session.beginTransaction();
         session.save(student);
         for (StudentProgram dto : studentProgram) {
-            session.save(dto);
+            session.persist(dto);
         }
         session.save(payment);
         transaction.commit();
@@ -37,12 +37,10 @@ public class StudentProgramTransDAOImpl implements StudentProgramTransDAO {
                     .setParameter("programId", studentProgram.getProgram().getProgramId())
                     .uniqueResult();
             if (existingStudentProgram != null) {
-                session.merge(student);
                 session.save(payment);
                 session.merge(studentProgram);
             } else {
                 // Save the new student program
-                session.merge(student);
                 session.save(payment);
                 session.save(studentProgram);
             }

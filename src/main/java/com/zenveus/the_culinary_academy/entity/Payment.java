@@ -7,14 +7,10 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
-
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-
-
 @Entity
 @Table(name = "payment")
 public class Payment {
@@ -35,13 +31,11 @@ public class Payment {
     @Column(name = "payment_time")
     private LocalTime paymentTime;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "student_id", nullable = false)
     private Student student;
-
 }
-

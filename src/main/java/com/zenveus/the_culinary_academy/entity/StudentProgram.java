@@ -5,11 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.HashSet;
-import java.util.Set;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -21,11 +16,11 @@ public class StudentProgram {
     @Column(name = "student_program_id")
     private Long studentProgramId;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "student_id", nullable = false)
     private Student student;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "program_id", nullable = false)
     private Program program;
 
@@ -40,5 +35,4 @@ public class StudentProgram {
 
     @Column(name = "pay_status")
     private String payStatus;
-
 }
