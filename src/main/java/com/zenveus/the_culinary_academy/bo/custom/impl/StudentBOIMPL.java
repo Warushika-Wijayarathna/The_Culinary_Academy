@@ -218,7 +218,7 @@ public class StudentBOIMPL implements StudentBO {
 
         for (int i = 0; i < length; i++) {
             String programId = programDetailsArray[i][0];
-            String paymentOption = programDetailsArray[i][2];
+            String paymentOption = programDetailsArray[i][1];
             String amount = paymentDetailsArray[i][1];
 
             combinedDetailsArray[i][0] = programId;
@@ -288,7 +288,9 @@ public class StudentBOIMPL implements StudentBO {
                 studentProgram.setInstallmentFee(installmentFee);
 
                 // Calculate total due and set payment status
-                double totalDue = studentProgram.getTotalDue()- installmentFee;
+                double totalDue = studentProgram.getTotalDue() - installmentFee;
+
+                System.out.println("\n\n===================\nTotal Due: " + totalDue);
                 studentProgram.setTotalDue(totalDue);
                 studentProgram.setPayStatus(totalDue <= 0 ? "Paid" : "Not Paid");
 

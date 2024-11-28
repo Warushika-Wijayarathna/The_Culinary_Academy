@@ -22,7 +22,7 @@ public class StudentProgramTransDAOImpl implements StudentProgramTransDAO {
         session.save(payment);
         transaction.commit();
         session.close();
-        return false;
+        return true;
     }
 
     @Override
@@ -37,12 +37,12 @@ public class StudentProgramTransDAOImpl implements StudentProgramTransDAO {
                     .setParameter("programId", studentProgram.getProgram().getProgramId())
                     .uniqueResult();
             if (existingStudentProgram != null) {
-                session.update(student);
+                session.merge(student);
                 session.save(payment);
-                session.update(existingStudentProgram);
+                session.merge(studentProgram);
             } else {
                 // Save the new student program
-                session.save(student);
+                session.merge(student);
                 session.save(payment);
                 session.save(studentProgram);
             }

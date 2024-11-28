@@ -301,7 +301,7 @@ public class StudentController implements Initializable {
     public void studentDeleteBtn(ActionEvent actionEvent) {
         System.out.println("click student delete Btn");
     }
-
+    // student save btn
     // student save btn
     public void studentSaveBtn(ActionEvent actionEvent) {
         System.out.println("click student save Btn");
@@ -325,11 +325,11 @@ public class StudentController implements Initializable {
         for (String program : programs) {
             if (program.contains("-")) {
                 String[] parts = program.split("-");
-                if (parts.length >= 3) {
+                if (parts.length >= 2) {
                     String programId = parts[0].trim();
                     String programInfo = parts[1].trim();
-                    String installment = parts[2].trim();
-                    programDetailsList.add(new String[]{programId, programInfo, installment});
+
+                    programDetailsList.add(new String[]{programId, programInfo});
                 }
             }
         }
@@ -353,7 +353,7 @@ public class StudentController implements Initializable {
 
         boolean isSaved = studentbo.saveStudentAndPrograms(studentDto, programDetailsArray, paymentDetailsArray);
 
-        if (!isSaved) {
+        if (isSaved) {
             new Alert(Alert.AlertType.INFORMATION, "Student saved successfully.").show();
         } else {
             new Alert(Alert.AlertType.ERROR, "Failed to save student.").show();
@@ -398,8 +398,6 @@ public class StudentController implements Initializable {
         // Convert the list to a 2D array and return it
         return paymentDetailsList.toArray(new String[0][]);
     }
-
-
 
 
     // student update btn
@@ -476,6 +474,9 @@ public class StudentController implements Initializable {
 
         try {
             boolean isUpdated = studentbo.updateStudentAndPrograms(studentDto, programDetailsList, Total);
+            // Reinitialize the controller
+            initialize(null, null);
+
             new Alert(Alert.AlertType.INFORMATION, "Student updated successfully.").show();
         } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR, "Failed to update student.").show();
@@ -594,8 +595,6 @@ public class StudentController implements Initializable {
         });
 
     }
-
-
 
     public void loadAllStudents() {
         List<StudentDto> allStudents = studentbo.getAllStudents();

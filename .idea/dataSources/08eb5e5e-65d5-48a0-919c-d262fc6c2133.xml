@@ -1117,7 +1117,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="307" parent="1" name="culinary_academy">
-      <LastIntrospectionLocalTimestamp>2024-11-27.06:48:29</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-11-28.11:49:32</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <user id="308" parent="1" name="debian-sys-maint">
@@ -1163,7 +1163,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
     <column id="318" parent="313" name="payment_id">
-      <AutoIncrement>2</AutoIncrement>
+      <AutoIncrement>3</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1315,7 +1315,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <UnderlyingIndexName>UK_fe0i52si7ybu0wjedj6motiim</UnderlyingIndexName>
     </key>
     <column id="350" parent="316" name="student_program_id">
-      <AutoIncrement>3</AutoIncrement>
+      <AutoIncrement>4</AutoIncrement>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
