@@ -60,9 +60,7 @@ public class LoginController {
     @FXML
     public void initialize() {
         // Run ensureSampleUser in another thread
-        new Thread(() -> {
-            Platform.runLater(this::ensureSampleUser);
-        }).start();
+        ensureSampleUser();
     }
     private void ensureSampleUser() {
         try {
@@ -97,16 +95,6 @@ public class LoginController {
     @FXML
     private void logBtn(ActionEvent event) throws Exception {
         List<UserDto> userDTOList = userBO.getAllUsers();
-
-        // Check if the user table is empty
-        if (userDTOList.isEmpty()) {
-            // Add a sample user
-            UserDto sampleUser = new UserDto();
-            sampleUser.setUsername("sampleUser");
-            sampleUser.setPassword(BCryptHasher.hashPassword("samplePassword"));
-            userBO.addUser(sampleUser);
-            userDTOList = userBO.getAllUsers(); // Refresh the user list
-        }
 
         String uName = uNameText.getText();
         String uPass = uPassText.getText();

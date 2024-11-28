@@ -50,6 +50,7 @@ public class MyAccountController implements Initializable {
 
     private void setUserDetails() {
         UserDto user = LoginController.getLoginUser();
+        System.out.println("User: " + user);
 
         if (user == null) {
             System.out.println("User is null");

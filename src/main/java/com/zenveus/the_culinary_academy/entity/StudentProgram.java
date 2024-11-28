@@ -40,4 +40,5 @@ public class StudentProgram {
 
     @Column(name = "pay_status")
     private String payStatus;
+
 }

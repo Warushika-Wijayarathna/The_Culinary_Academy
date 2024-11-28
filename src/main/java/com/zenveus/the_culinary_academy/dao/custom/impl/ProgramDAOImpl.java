@@ -52,7 +52,7 @@ public class ProgramDAOImpl implements ProgramDAO {
     }
 
     @Override
-    public Object exist(String id) throws Exception {
+    public Program exist(String id) throws Exception {
         Session session = FactoryConfiguration.getInstance().getSession();
         session.getTransaction().begin();
         Program program = session.get(Program.class, id);

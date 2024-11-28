@@ -1,8 +1,6 @@
 package com.zenveus.the_culinary_academy.dao;
 
-import com.zenveus.the_culinary_academy.dao.custom.impl.ProgramDAOImpl;
-import com.zenveus.the_culinary_academy.dao.custom.impl.StudentDAOImpl;
-import com.zenveus.the_culinary_academy.dao.custom.impl.UserDAOImpl;
+import com.zenveus.the_culinary_academy.dao.custom.impl.*;
 
 import static com.zenveus.the_culinary_academy.bo.BOFactory.BOTypes.STUDENT;
 
@@ -16,7 +14,8 @@ public class DAOFactory {
     }
 
     public enum DAOTypes{
-        PROGRAM, USER, STUDENT
+        PROGRAM, USER, STUDENT, STUDENTPROGRAM,STUDENTPROGRAMTRANS;
+
     }
 
     public SuperDAO getDAO(DAOTypes types){
@@ -27,6 +26,10 @@ public class DAOFactory {
                 return new ProgramDAOImpl();
             case STUDENT:
                 return new StudentDAOImpl();
+            case STUDENTPROGRAM:
+                return new StudentProgramDAOImpl();
+            case STUDENTPROGRAMTRANS:
+                return new StudentProgramTransDAOImpl();
             default:
                 return null;
         }

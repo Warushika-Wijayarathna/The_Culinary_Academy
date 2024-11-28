@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 
 @AllArgsConstructor
@@ -21,10 +22,6 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "payment_id")
     private Long paymentId;
-
-    @ManyToOne
-    @JoinColumn(name = "student_program_id", nullable = false)
-    private StudentProgram studentProgram;
 
     @Column(name = "payment_description")
     private String paymentDescription;

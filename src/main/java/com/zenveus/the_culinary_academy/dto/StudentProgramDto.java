@@ -14,4 +14,5 @@ public class StudentProgramDto {
     private String payOption;
     private double installmentFee;
     private double totalDue;
+    private String payStatus;
 }

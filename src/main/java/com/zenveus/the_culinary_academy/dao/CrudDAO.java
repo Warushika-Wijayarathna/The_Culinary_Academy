@@ -1,5 +1,7 @@
 package com.zenveus.the_culinary_academy.dao;
 
+import com.zenveus.the_culinary_academy.entity.Program;
+
 import java.util.List;
 
 public interface CrudDAO<T> extends SuperDAO {
@@ -13,5 +15,5 @@ public interface CrudDAO<T> extends SuperDAO {
 
     List<T> getAll() throws Exception;
 
-    Object exist(String id) throws Exception;
+    T exist(String id) throws Exception;
 }

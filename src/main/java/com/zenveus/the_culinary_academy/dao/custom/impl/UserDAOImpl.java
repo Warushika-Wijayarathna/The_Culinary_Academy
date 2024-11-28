@@ -2,6 +2,7 @@ package com.zenveus.the_culinary_academy.dao.custom.impl;
 
 import com.zenveus.the_culinary_academy.config.FactoryConfiguration;
 import com.zenveus.the_culinary_academy.dao.custom.UserDAO;
+import com.zenveus.the_culinary_academy.entity.Program;
 import com.zenveus.the_culinary_academy.entity.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -59,7 +60,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public Object exist(String id) throws Exception {
+    public User exist(String id) throws Exception {
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
         User user = session.get(User.class, id);

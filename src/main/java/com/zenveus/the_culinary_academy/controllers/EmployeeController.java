@@ -280,6 +280,7 @@ public class EmployeeController implements Initializable {
         char specialChar = specialChars.charAt((int) (Math.random() * specialChars.length()));
 
         String password = base + randomNum + specialChar;
+        System.out.println("password: " + password);
         return BCryptHasher.hashPassword(password);
     }
     private String generateUsername(String employeeName) {

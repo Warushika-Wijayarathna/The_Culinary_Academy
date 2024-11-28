@@ -61,9 +61,9 @@ public class DashboardController  implements Initializable {
 
         if (userDTO != null){
             if (userDTO.getJobRole().equals("Admin")){
-                wellcomeText.setText("Welcome, admin");
+                wellcomeText.setText("Welcome, Admin - "+LoginController.getLoginUser().getUsername());
             }else if (userDTO.getJobRole().equals("Coordinator")){
-                wellcomeText.setText("Welcome, Coordinator");
+                wellcomeText.setText("Welcome, Coordinator - "+LoginController.getLoginUser().getUsername());
                 employeeBtn.setOnAction(event -> {
                     // No action or show a message indicating restricted access
                 });

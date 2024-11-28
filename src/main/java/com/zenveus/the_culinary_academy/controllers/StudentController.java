@@ -1,5 +1,6 @@
 package com.zenveus.the_culinary_academy.controllers;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.zenveus.the_culinary_academy.bo.BOFactory;
@@ -7,12 +8,15 @@ import com.zenveus.the_culinary_academy.bo.custom.ProgramBO;
 import com.zenveus.the_culinary_academy.bo.custom.StudentBO;
 import com.zenveus.the_culinary_academy.dto.ProgramDto;
 import com.zenveus.the_culinary_academy.dto.StudentDto;
+import com.zenveus.the_culinary_academy.tm.ProgramTm;
+import com.zenveus.the_culinary_academy.tm.StudentTm;
 import javafx.animation.TranslateTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -25,6 +29,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -49,9 +54,21 @@ public class StudentController implements Initializable {
     public JFXTextArea selectProgramShow;
     public JFXComboBox payOptionCombo;
     public JFXTextArea paymentDetailsTxtArea;
+    public TableColumn<?,?> colStuId;
+    public TableColumn<?,?> colStuName;
+    public TableColumn<?,?> colStuNic;
+    public TableColumn<?,?> colStuAge;
+    public TableColumn<?,?> colStuEmail;
+    public TableColumn<?,?> colStuPhone;
+    public TableColumn<?,?> colStuAddress;
+    public TableView<StudentTm> studentTable;
+    public TableColumn<?,?> colAction;
+    public JFXComboBox paymentCombo;
 
     private TranslateTransition sideTransition;
     private boolean isShow = false;
+
+    ObservableList<StudentTm> observableList = FXCollections.observableArrayList();
 
 
     StudentBO studentbo = (StudentBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.STUDENT);
@@ -61,6 +78,7 @@ public class StudentController implements Initializable {
         setTransition();
         setStudentID();
         setCellValueFactories();
+        loadAllStudents();
         setProgramComboBox();
         setPaymentComboBox();
         setProgramComboAction();
@@ -77,13 +95,19 @@ public class StudentController implements Initializable {
         payOptionCombo.setOnKeyPressed(event -> {
             if (event.getCode().toString().equals("ENTER")) {
                 String selectedProgram = programCombo.getValue().toString();
+                // get first word of the selected program
+                selectedProgram = selectedProgram.split("-")[0].trim();
+
                 String selectedPaymentOption = payOptionCombo.getValue().toString();
                 String currentText = selectProgramShow.getText();
 
-                // Check if the selected program is already in the text area
-                if (!currentText.contains(selectedProgram + " - ")) {
+                // General check for the selected program ID in any format
+                if (!currentText.contains("Program ID: " + selectedProgram) &&
+                        !currentText.matches("(?m)^" + selectedProgram + " - .*")) {
+
                     // Append the new selection to the existing text
-                    selectProgramShow.setText(currentText + (currentText.isEmpty() ? "" : "\n") + selectedProgram + " - " + selectedPaymentOption);
+                    selectProgramShow.setText(currentText + (currentText.isEmpty() ? "" : "\n")
+                            + selectedProgram + " - " + selectedPaymentOption);
 
                     // Reset the combo boxes
                     programCombo.setValue(null);
@@ -92,6 +116,7 @@ public class StudentController implements Initializable {
                     setPaymentDetails(selectedPaymentOption, selectedProgram);
                     setTotalPayments();
                 } else {
+                    // Show warning if the program is already added
                     new Alert(Alert.AlertType.WARNING, "The selected program is already added.").show();
                     System.out.println("The selected program is already added.");
 
@@ -102,6 +127,7 @@ public class StudentController implements Initializable {
             }
         });
     }
+
 
     private void setTotalPayments() {
         String[] lines = paymentDetailsTxtArea.getText().split("\n");
@@ -186,6 +212,15 @@ public class StudentController implements Initializable {
     }
 
     private void setCellValueFactories() {
+        // Set the cell value factories for the student table
+        colStuId.setCellValueFactory(new PropertyValueFactory<>("studentID"));
+        colStuName.setCellValueFactory(new PropertyValueFactory<>("studentName"));
+        colStuNic.setCellValueFactory(new PropertyValueFactory<>("studentNIC"));
+        colStuAge.setCellValueFactory(new PropertyValueFactory<>("studentAge"));
+        colStuEmail.setCellValueFactory(new PropertyValueFactory<>("studentEmail"));
+        colStuPhone.setCellValueFactory(new PropertyValueFactory<>("studentPhone"));
+        colStuAddress.setCellValueFactory(new PropertyValueFactory<>("studentAddress"));
+        colAction.setCellValueFactory(new PropertyValueFactory<>("btn"));
     }
 
     private void setStudentID() {
@@ -266,7 +301,7 @@ public class StudentController implements Initializable {
     public void studentDeleteBtn(ActionEvent actionEvent) {
         System.out.println("click student delete Btn");
     }
-    // student save btn
+
     // student save btn
     public void studentSaveBtn(ActionEvent actionEvent) {
         System.out.println("click student save Btn");
@@ -318,7 +353,7 @@ public class StudentController implements Initializable {
 
         boolean isSaved = studentbo.saveStudentAndPrograms(studentDto, programDetailsArray, paymentDetailsArray);
 
-        if (isSaved) {
+        if (!isSaved) {
             new Alert(Alert.AlertType.INFORMATION, "Student saved successfully.").show();
         } else {
             new Alert(Alert.AlertType.ERROR, "Failed to save student.").show();
@@ -370,8 +405,212 @@ public class StudentController implements Initializable {
     // student update btn
     public void studentUpdateBtn(ActionEvent actionEvent) {
         System.out.println("click student update Btn");
+
+        String studentId = studentIDField.getText();
+        String studentName = studentNameField.getText();
+        String studentNIC = studentNICField.getText();
+        String studentDOB = studentDOBField.getValue().toString();
+        String studentPhone = studentPhoneField.getText();
+        String studentEmail = studentEmailField.getText();
+        String studentAddress = studentAddressField.getText();
+
+        StudentDto studentDto = new StudentDto();
+        studentDto.setStudentId(studentId);
+        studentDto.setFullName(studentName);
+        studentDto.setStudentNic(studentNIC);
+        studentDto.setDob(studentDOB);
+        studentDto.setPhone(studentPhone);
+        studentDto.setEmail(studentEmail);
+        studentDto.setAddress(studentAddress);
+
+        // Get the payment details from the paymentDetailsTxtArea
+        String[] paymentDetails = paymentDetailsTxtArea.getText().split("\n");
+
+        List<String[]> programDetailsList = new ArrayList<>();
+
+        double Total = 0.0;
+
+        String lastPaymentAmount = ""; // Temporary storage for the last payment amount
+        for (String payment : paymentDetails) {
+//            System.out.println("Processing payment: " + payment); // Log the payment string
+            if (payment.contains("Total") || payment.contains("Programs")) {
+                // store the total amount with out Rs.
+                if (payment.contains("Total")) {
+                    Total = Double.parseDouble(payment.split("Rs.")[1].trim());
+                    System.out.println("Total: " + Total);
+
+                }
+
+                continue; // Skip lines containing "Total" or "Programs"
+            }
+            if (payment.contains("-") && !payment.contains("Rs.")) {
+                String[] parts = payment.split("-");
+//                System.out.println("Parts length: " + parts.length); // Log the length of the parts array
+//                for (String part : parts) {
+//                    System.out.println("Part: " + part); // Log each part
+//                }
+                if (parts.length >= 3) {
+                    String programId = parts[0].trim();
+                    String programInfo = parts[1].trim();
+                    String installment = parts[2].trim();
+                    programDetailsList.add(new String[]{programId, programInfo, installment});
+//                    System.out.println("Program ID: " + programId + ", Program Info: " + programInfo + ", Installment: " + installment);
+                } else if (parts.length>=2) {
+                    String programId = parts[0].trim();
+                    String programInfo = parts[1].trim();
+
+                    programDetailsList.add(new String[]{programId,null,programInfo});
+                }
+
+            } else if (payment.contains("Rs.")) {
+                lastPaymentAmount = payment.split("Rs.")[1].trim();
+                if (!programDetailsList.isEmpty()) {
+                    String[] lastProgramDetails = programDetailsList.get(programDetailsList.size() - 1);
+                    lastProgramDetails = Arrays.copyOf(lastProgramDetails, lastProgramDetails.length + 1);
+                    lastProgramDetails[lastProgramDetails.length - 1] = lastPaymentAmount;
+                    programDetailsList.set(programDetailsList.size() - 1, lastProgramDetails);
+                }
+            }
+
+        }
+
+        try {
+            boolean isUpdated = studentbo.updateStudentAndPrograms(studentDto, programDetailsList, Total);
+            new Alert(Alert.AlertType.INFORMATION, "Student updated successfully.").show();
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "Failed to update student.").show();
+            throw new RuntimeException(e);
+        }
+
+
+        // Debugging: Print extracted details
+//        System.out.println("Extracted Details:");
+//        for (String[] details : programDetailsList) {
+//            System.out.printf("Program ID: %s, Info: %s, Installment: %s, Payment: Rs. %s%n",
+//                    details[0], details[1], details[2], details[3]);
+//        }
+
+
     }
 
     public void rowClick(MouseEvent mouseEvent) {
+        System.out.println("click row");
+
+        StudentTm selectedItem = studentTable.getSelectionModel().getSelectedItem();
+        if (selectedItem == null) {
+            return;
+        }
+
+        StudentDto student = studentbo.searchStudentByStudentId(selectedItem.getStudentID());
+
+        studentIDField.setText(student.getStudentId());
+        studentNameField.setText(student.getFullName());
+        studentNICField.setText(student.getStudentNic());
+        studentDOBField.setValue(LocalDate.parse(student.getDob()));
+        studentPhoneField.setText(student.getPhone());
+        studentEmailField.setText(student.getEmail());
+        studentAddressField.setText(student.getAddress());
+
+        // Load the programs and payments for the selected student
+        loadProgramsAndPayments(student.getStudentId());
+
+    }
+
+    private void loadProgramsAndPayments(String studentId) {
+        // Retrieve programs and payments for the student
+        List<String[]> programs = studentbo.getProgramsForStudent(studentId);
+
+        // Build a display text for programs
+        StringBuilder programText = new StringBuilder();
+        for (String[] program : programs) {
+            programText.append("Program ID: ").append(program[0])
+                    .append("\nName: ").append(program[1])
+                    .append("\nDuration: ").append(program[2])
+                    .append("\nFee: ").append(program[3])
+                    .append("\nPayment Option: ").append(program[4])
+                    .append("\nInstallment Fee: ").append(program[5])
+                    .append("\nTotal Due: ").append(program[6])
+                    .append("\nPayment Status: ").append(program[7])
+                    .append("\n\n");
+        }
+        selectProgramShow.setText(programText.toString());
+
+        // Set programs to payment combo box (exclude already paid programs)
+        for (String[] program : programs) {
+            if (program[7].equals("Not Paid")) { // Payment status is "Not Paid"
+                paymentCombo.getItems().add(program[0] + " - " + program[1]);
+            }
+        }
+
+        // Handle combo box selection for payment
+        paymentCombo.setOnAction(event -> {
+            String selectedProgram = String.valueOf(paymentCombo.getValue()); // Get selected value
+            if (selectedProgram == null) return;
+
+            // Extract program ID and name
+            String[] parts = selectedProgram.split(" - ");
+            String programId = parts[0].trim();
+            String programName = parts[1].trim();
+
+            // Find program details
+            String[] programDetails = programText.toString().split("Program ID: " + programId);
+            if (programDetails.length < 2) return; // If program not found, exit
+
+            String[] programDetailsParts = programDetails[1].split("\n");
+            String paymentOption = programDetailsParts[4].split(":")[1].trim();
+            String installmentFee = programDetailsParts[5].split(":")[1].trim();
+
+            // Extract current payment details and total
+            String paymentDetails = paymentDetailsTxtArea.getText();
+            String[] paymentTextLines = paymentDetails.split("\n");
+            double total = 0;
+            StringBuilder updatedPaymentText = new StringBuilder();
+
+            // Rebuild the payment details while extracting the existing total
+            for (String line : paymentTextLines) {
+                if (line.contains("Total")) {
+                    total = Double.parseDouble(line.split("Rs\\.")[1].trim());
+                } else {
+                    updatedPaymentText.append(line).append("\n");
+                }
+            }
+
+            // Check if the program is already added
+            if (paymentDetails.contains(programName)) {
+                new Alert(Alert.AlertType.WARNING, "The selected program is already added.").show();
+                return;
+            }
+
+            // Add new program payment details
+            updatedPaymentText.append(programId).append(" - ").append(programName).append(" - ").append(paymentOption).append(" (Installment):\n");
+            updatedPaymentText.append("Rs. ").append(installmentFee).append("\n\n");
+
+            // Update the total
+            total += Double.parseDouble(installmentFee);
+            updatedPaymentText.append("Total: Rs. ").append(total).append("\n");
+
+            // Update the payment details text area
+            paymentDetailsTxtArea.setText(updatedPaymentText.toString());
+        });
+
+    }
+
+
+
+    public void loadAllStudents() {
+        List<StudentDto> allStudents = studentbo.getAllStudents();
+        observableList.clear();
+
+        for (StudentDto studentDto : allStudents) {
+            JFXButton btn = new JFXButton("Delete");
+            observableList.add(new StudentTm(studentDto.getStudentId(), studentDto.getFullName(), studentDto.getStudentNic(), getAge(studentDto.getDob()), studentDto.getEmail(), studentDto.getPhone(), studentDto.getAddress(), btn));
+        }
+        studentTable.setItems(observableList);
+    }
+
+    public String getAge(String dob) {
+        LocalDate birthDate = LocalDate.parse(dob);
+        LocalDate currentDate = LocalDate.now();
+        return String.valueOf(currentDate.getYear() - birthDate.getYear());
     }
 }

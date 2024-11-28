@@ -25,7 +25,7 @@
             <TableColumn fx:id="colStuEmail" minWidth="9.666656494140625" prefWidth="135.0" style="-fx-background-color: white; -fx-border-color: transparent transparent black transparent; -fx-border-width: 0 0 1px 0;" text="Email" />
             <TableColumn fx:id="colStuPhone" prefWidth="92.0" style="-fx-background-color: white; -fx-border-color: transparent transparent black transparent; -fx-border-width: 0 0 1px 0;" text="Phone" />
             <TableColumn fx:id="colStuAddress" prefWidth="79.0" style="-fx-background-color: white; -fx-border-color: transparent transparent black transparent; -fx-border-width: 0 0 1px 0;" text="Address" />
-            <TableColumn prefWidth="103.0" style="-fx-background-color: white; -fx-border-color: transparent transparent black transparent; -fx-border-width: 0 0 1px 0;" text="Action" />
+            <TableColumn fx:id="colAction" prefWidth="103.0" style="-fx-background-color: white; -fx-border-color: transparent transparent black transparent; -fx-border-width: 0 0 1px 0;" text="Action" />
          </columns>
       </TableView>
       <AnchorPane layoutX="15.0" layoutY="96.0" prefHeight="160.0" prefWidth="743.0" style="-fx-background-color: rgba(255, 255, 255, 0.3); -fx-background-radius: 30px;">
@@ -123,7 +123,8 @@
                         <Font name="Khmer OS System" size="14.0" />
                      </font>
                   </Text>
-                  <JFXTextArea fx:id="paymentDetailsTxtArea" layoutX="9.0" layoutY="42.0" prefHeight="301.0" prefWidth="203.0" unFocusColor="#4d4d4d00" />
+                  <JFXTextArea fx:id="paymentDetailsTxtArea" layoutX="9.0" layoutY="64.0" prefHeight="279.0" prefWidth="203.0" unFocusColor="#4d4d4d00" />
+                  <JFXComboBox fx:id="paymentCombo" layoutX="10.0" layoutY="31.0" prefHeight="24.0" prefWidth="144.0" promptText="select program(pay)" />
                </AnchorPane>
                <AnchorPane layoutX="-12.0" layoutY="216.0" prefHeight="24.0" prefWidth="31.0" style="-fx-background-color: white; -fx-background-radius: 10px;">
                   <ImageView fx:id="reportLeftRightImage" fitHeight="20.0" fitWidth="20.0" layoutX="-2.0" layoutY="2.0">

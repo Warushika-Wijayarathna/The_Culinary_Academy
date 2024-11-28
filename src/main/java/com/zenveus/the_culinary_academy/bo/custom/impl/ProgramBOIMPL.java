@@ -63,7 +63,7 @@ public class ProgramBOIMPL implements ProgramBO {
     @Override
     public ProgramDto getProgramDetails(String programId) {
         try {
-            Program program = (Program) programDAO.exist(programId);
+            Program program = programDAO.exist(programId);
             return new ProgramDto(program.getProgramId(), program.getProgramName(), program.getDuration(), program.getFee());
         } catch (Exception e) {
             throw new RuntimeException(e);
