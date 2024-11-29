@@ -122,7 +122,7 @@ public class ProgramController implements Initializable {
     private void setTransition() {
         sideTransition = new TranslateTransition(Duration.seconds(1.5), programRegMainAnchor);
         sideTransition.setFromX(0);
-        sideTransition.setToX(550); // Set initial `toX` based on `isShow`
+        sideTransition.setToX(520); // Set initial `toX` based on `isShow`
         updateIcon();
     }
 
@@ -137,8 +137,8 @@ public class ProgramController implements Initializable {
         sideTransition.stop();  // Stop any ongoing transition before starting a new one
 
         // Set starting and ending points dynamically based on isShow
-        sideTransition.setFromX(isShow ? 548 : 0);
-        sideTransition.setToX(isShow ? 0 : 548);
+        sideTransition.setFromX(isShow ? 520 : 0);
+        sideTransition.setToX(isShow ? 0 : 520);
         sideTransition.setDuration(Duration.seconds(1.5));
 
         isShow = !isShow;  // Toggle the state
@@ -298,7 +298,7 @@ public class ProgramController implements Initializable {
             if (isShow) {
                 isShow = !isShow;
                 sideTransition.setDuration(Duration.seconds(isShow ? 1.5 : 2));
-                sideTransition.setToX(isShow ? 550 : 0);
+                sideTransition.setToX(isShow ? 520 : 0);
                 updateIcon();
                 sideTransition.play();
             }

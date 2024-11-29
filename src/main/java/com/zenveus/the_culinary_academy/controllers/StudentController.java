@@ -671,6 +671,14 @@ public class StudentController implements Initializable {
         // Load the programs and payments for the selected student
         loadProgramsAndPayments(student.getStudentId());
 
+        if (isShow) {
+            sideTransition.setFromX(isShow ? 870 : 0);
+            sideTransition.setToX(isShow ? 0 : 870);
+            sideTransition.setDuration(Duration.seconds(1.5));
+            updateIcon();
+            sideTransition.play();
+        }
+
     }
 
     private void loadProgramsAndPayments(String studentId) {
