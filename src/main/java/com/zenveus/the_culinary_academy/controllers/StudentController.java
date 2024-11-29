@@ -215,8 +215,7 @@ public class StudentController implements Initializable {
 
         stuFilterComboBox.getItems().add("All Programs");
 
-        // make All programs the default selected item
-        stuFilterComboBox.setValue("All Programs");
+
         for (ProgramDto program : allPrograms) {
             programCombo.getItems().add(program.getProgramId() + " - " + program.getProgramName());
             stuFilterComboBox.getItems().add(program.getProgramName());
@@ -779,36 +778,45 @@ public class StudentController implements Initializable {
 
     public void onFilterAction(ActionEvent event) {
         String selectedProgram = stuFilterComboBox.getValue().toString();
-        // if the selected program is "All Programs" then load students who assigned for all programs
-        List<Object[]> studentsDoingAllPrograms = studentbo.getStudentsDoingAllPrograms();
+        System.out.println("selected: "+selectedProgram);
 
-        // get the student IDs from the studentsDoingAllPrograms and the students with the matching studentid leave in the table
-        for (Object[] student : studentsDoingAllPrograms) {
-            for (StudentDto studentDto : studentbo.getAllStudents()) {
-                System.out.println(student[0]);
-                if (studentDto.getStudentId().equals(student[0])) {
-                    JFXButton btn = new JFXButton("Delete");
-                    observableList.add(new StudentTm(studentDto.getStudentId(), studentDto.getFullName(), studentDto.getStudentNic(), getAge(studentDto.getDob()), studentDto.getEmail(), studentDto.getPhone(), studentDto.getAddress(), btn));
-                }
-            }
-        }
-
-        List<StudentDto> allStudents = studentbo.getAllStudents();
+        // Clear the observable list before filtering
         observableList.clear();
 
-        List<Object[]> filteredStudents = studentbo.getStudentsByProgram(selectedProgram);
+        // If "All Programs" is selected, handle that case
+        if ("All Programs".equals(selectedProgram)) {
+            System.out.println("All program selected");
+            List<Object[]> studentsDoingAllPrograms = studentbo.getStudentsDoingAllPrograms();
 
-        // get the student IDs from the filtered students and the students with the matching studentid leave in the table
+            // Add students who are in all programs
+            for (Object[] student : studentsDoingAllPrograms) {
+                for (StudentDto studentDto : studentbo.getAllStudents()) {
+                    if (studentDto.getStudentId().equals(student[0])) {
+                        JFXButton btn = new JFXButton("Delete");
+                        observableList.add(new StudentTm(studentDto.getStudentId(), studentDto.getFullName(), studentDto.getStudentNic(),
+                                getAge(studentDto.getDob()), studentDto.getEmail(), studentDto.getPhone(), studentDto.getAddress(), btn));
+                    }
+                }
+            }
+        } else {
+            System.out.println("Other selected");
+            // Handle specific program filter
+            List<Object[]> filteredStudents = studentbo.getStudentsByProgram(selectedProgram);
 
-        for (Object[] student : filteredStudents) {
-            for (StudentDto studentDto : allStudents) {
-                if (studentDto.getStudentId().equals(student[0])) {
-                    JFXButton btn = new JFXButton("Delete");
-                    observableList.add(new StudentTm(studentDto.getStudentId(), studentDto.getFullName(), studentDto.getStudentNic(), getAge(studentDto.getDob()), studentDto.getEmail(), studentDto.getPhone(), studentDto.getAddress(), btn));
+            // Add students in the selected program
+            for (Object[] student : filteredStudents) {
+                for (StudentDto studentDto : studentbo.getAllStudents()) {
+                    if (studentDto.getStudentId().equals(student[0])) {
+                        JFXButton btn = new JFXButton("Delete");
+                        observableList.add(new StudentTm(studentDto.getStudentId(), studentDto.getFullName(), studentDto.getStudentNic(),
+                                getAge(studentDto.getDob()), studentDto.getEmail(), studentDto.getPhone(), studentDto.getAddress(), btn));
+                    }
                 }
             }
         }
 
+        // Set the observable list to the table
         studentTable.setItems(observableList);
     }
+
 }

@@ -37,6 +37,7 @@ import javafx.util.Duration;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -173,33 +174,38 @@ public class EmployeeController implements Initializable {
     }
 
     // employee delete btn
-    public void employeeDeleteBtn(ActionEvent actionEvent) {
+    public void employeeDeleteBtn(ActionEvent actionEvent) throws SQLException {
         System.out.println("click employee delete Btn");
 
-        UserDto user = new UserDto();
-        user.setUserId(employeeIDField.getText());
-        user.setFullName(employeeNameField.getText());
-        user.setEmail(employeeEmailField.getText());
-        user.setPhoneNumber(employeePhoneField.getText());
-        user.setAddress(employeeAddressField.getText());
-        user.setJobRole(userJob.getValue());
+        try {
+            UserDto user = new UserDto();
+            user.setUserId(employeeIDField.getText());
+            user.setFullName(employeeNameField.getText());
+            user.setEmail(employeeEmailField.getText());
+            user.setPhoneNumber(employeePhoneField.getText());
+            user.setAddress(employeeAddressField.getText());
+            user.setJobRole(userJob.getValue());
 
-        UserDto userDto = userBO.isUserExist(user);
+            UserDto userDto = userBO.isUserExist(user);
 
-        if(userDto == null){
-            new Alert(Alert.AlertType.ERROR, "Employee Not Found!").showAndWait();
-            return;
-        }
+            if(userDto == null){
+                new Alert(Alert.AlertType.ERROR, "Employee Not Found!").showAndWait();
+                return;
+            }
 
-        boolean isDeleted = userBO.deleteUser(userDto);
+            boolean isDeleted = userBO.deleteUser(userDto);
 
-        if(isDeleted){
-            new Alert(Alert.AlertType.INFORMATION, "Employee Deleted Successfully!").showAndWait();
-            setEmployeeID();
-            clearAllFields();
-            loadAllEmployees();
-        }else{
-            new Alert(Alert.AlertType.ERROR, "Failed to Delete Employee!").showAndWait();
+            if(isDeleted){
+                new Alert(Alert.AlertType.INFORMATION, "Employee Deleted Successfully!").showAndWait();
+                setEmployeeID();
+                clearAllFields();
+                loadAllEmployees();
+            }else{
+                new Alert(Alert.AlertType.ERROR, "Failed to Delete Employee!").showAndWait();
+            }
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
+            throw new SQLException(e);
         }
     }
     // employee save btn

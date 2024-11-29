@@ -93,4 +93,18 @@ public class ProgramDAOImpl implements ProgramDAO {
         }
     }
 
+    @Override
+    public List<Object[]> getProgramsCountByDuration() {
+        List<Object[]> programsCountByDuration = null;
+
+        Session session = FactoryConfiguration.getInstance().getSession();
+        session.getTransaction().begin();
+        programsCountByDuration = session.createQuery("SELECT p.duration, COUNT(p.programId) FROM Program p GROUP BY p.duration", Object[].class)
+                .list();
+        session.getTransaction().commit();
+        session.close();
+
+        return programsCountByDuration;
+    }
+
 }

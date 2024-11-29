@@ -12,4 +12,8 @@ public interface ChartBO extends SuperBO {
     int getCoordinatorCount();
 
     List<Object[]> getStudentCourseCount();
+
+    List<Object[]> getMonthlyTotalPayments();
+
+    List<Object[]> getProgramsCountByDuration();
 }

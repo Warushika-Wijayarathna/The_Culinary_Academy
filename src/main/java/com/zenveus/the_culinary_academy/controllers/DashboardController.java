@@ -116,18 +116,13 @@ public class DashboardController  implements Initializable {
         paymentSeries.setName("Monthly Payments");
 
         // Add demo data (Month and Payment Amount)
-        paymentSeries.getData().add(new XYChart.Data<>("January", 150));
-        paymentSeries.getData().add(new XYChart.Data<>("February", 200));
-        paymentSeries.getData().add(new XYChart.Data<>("March", 180));
-        paymentSeries.getData().add(new XYChart.Data<>("April", 220));
-        paymentSeries.getData().add(new XYChart.Data<>("May", 240));
-        paymentSeries.getData().add(new XYChart.Data<>("June", 300));
-        paymentSeries.getData().add(new XYChart.Data<>("July", 280));
-        paymentSeries.getData().add(new XYChart.Data<>("August", 310));
-        paymentSeries.getData().add(new XYChart.Data<>("September", 270));
-        paymentSeries.getData().add(new XYChart.Data<>("October", 290));
-        paymentSeries.getData().add(new XYChart.Data<>("November", 320));
-        paymentSeries.getData().add(new XYChart.Data<>("December", 330));
+        List<Object[]> monthlyTotalPayments = chartBO.getMonthlyTotalPayments();
+
+        for (Object[] row : monthlyTotalPayments) {
+            int month = (int) row[0];
+            double amount = (double) row[1];
+            paymentSeries.getData().add(new XYChart.Data<>(String.valueOf(month), amount));
+        }
 
         paymentLineChart.getData().add(paymentSeries);
 
@@ -148,13 +143,14 @@ public class DashboardController  implements Initializable {
 
 
         // Add demo data to the PieChart
-        PieChart.Data programA = new PieChart.Data("Culinary Arts", 40);
-        PieChart.Data programB = new PieChart.Data("Baking & Pastry", 25);
-        PieChart.Data programC = new PieChart.Data("Food Science", 15);
-        PieChart.Data programD = new PieChart.Data("Hospitality Management", 10);
-        PieChart.Data programE = new PieChart.Data("Nutrition", 10);
+        List<Object[]> programsCountByDuration = chartBO.getProgramsCountByDuration();
 
-        programPieChart.getData().addAll(programA, programB, programC, programD, programE);
+        for (Object[] row : programsCountByDuration) {
+            String duration = (String) row[0];
+            long count = (long) row[1];
+            programPieChart.getData().add(new PieChart.Data(duration, count));
+        }
+
     }
 
     public void logOutBtn(ActionEvent actionEvent) {

@@ -15,4 +15,6 @@ public interface StudentProgramTransDAO extends SuperDAO {
     List<Object[]> getStudentCourseCount();
 
     List<Object[]> getStudentsDoingAllPrograms();
+
+    List<Object[]> getMonthlyTotalPayments();
 }

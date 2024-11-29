@@ -79,4 +79,17 @@ public class StudentProgramTransDAOImpl implements StudentProgramTransDAO {
         return studentsDoingAllPrograms;
     }
 
+    @Override
+    public List<Object[]> getMonthlyTotalPayments() {
+        List<Object[]> monthlyTotalPayments = null;
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        monthlyTotalPayments = session.createQuery("SELECT MONTH(p.paymentDate), SUM(p.amount) FROM Payment p GROUP BY MONTH(p.paymentDate)", Object[].class)
+                .list();
+        transaction.commit();
+        session.close();
+
+        return monthlyTotalPayments;
+    }
+
 }

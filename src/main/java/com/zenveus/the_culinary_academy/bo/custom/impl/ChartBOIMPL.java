@@ -79,4 +79,29 @@ public class ChartBOIMPL implements ChartBO {
         }
         return studentCourseCount;
     }
+
+    @Override
+    public List<Object[]> getMonthlyTotalPayments() {
+        List<Object[]> monthlyTotalPayments=null;
+
+        try {
+            monthlyTotalPayments = studentProgramTransDAO.getMonthlyTotalPayments();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return monthlyTotalPayments;
+    }
+
+    @Override
+    public List<Object[]> getProgramsCountByDuration() {
+        List<Object[]> programsCountByDuration=null;
+
+        try {
+            programsCountByDuration = programDAO.getProgramsCountByDuration();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return programsCountByDuration;
+    }
 }
