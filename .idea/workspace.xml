@@ -6,18 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="b22353d1-bde8-4fed-bb32-65d30ec151fe" name="Changes" comment="modified more">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/bo/custom/ChartBO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/bo/custom/ChartBO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/bo/custom/impl/ChartBOIMPL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/bo/custom/impl/ChartBOIMPL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/controllers/DashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/controllers/DashboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/bo/custom/impl/StudentBOIMPL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/bo/custom/impl/StudentBOIMPL.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/controllers/StudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/controllers/StudentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/dao/custom/ProgramDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/dao/custom/ProgramDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/dao/custom/StudentProgramTransDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/dao/custom/StudentProgramTransDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/dao/custom/impl/ProgramDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/dao/custom/impl/ProgramDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/dao/custom/impl/StudentProgramTransDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zenveus/the_culinary_academy/dao/custom/impl/StudentProgramTransDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/zenveus/the_culinary_academy/view/student.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/zenveus/the_culinary_academy/view/student.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/bo/custom/impl/StudentBOIMPL.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/bo/custom/impl/StudentBOIMPL.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/controllers/EmployeeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/controllers/EmployeeController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/controllers/StudentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/controllers/StudentController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/dao/custom/StudentProgramTransDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/dao/custom/StudentProgramTransDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/dao/custom/impl/StudentProgramTransDAOImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zenveus/the_culinary_academy/dao/custom/impl/StudentProgramTransDAOImpl.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,23 +164,7 @@
       <workItem from="1732730700640" duration="38000" />
       <workItem from="1732730745272" duration="1892000" />
       <workItem from="1732732662329" duration="69115000" />
-      <workItem from="1732890796063" duration="10186000" />
-    </task>
-    <task id="LOCAL-00001" summary="u">
-      <option name="closed" value="true" />
-      <created>1730699880880</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1730699880880</updated>
-    </task>
-    <task id="LOCAL-00002" summary="commit">
-      <option name="closed" value="true" />
-      <created>1730708072044</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1730708072044</updated>
+      <workItem from="1732890796063" duration="14443000" />
     </task>
     <task id="LOCAL-00003" summary="new adjustments">
       <option name="closed" value="true" />
@@ -565,7 +542,23 @@
       <option name="project" value="LOCAL" />
       <updated>1732901514933</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="modified more">
+      <option name="closed" value="true" />
+      <created>1732904532299</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1732904532299</updated>
+    </task>
+    <task id="LOCAL-00051" summary="modified more">
+      <option name="closed" value="true" />
+      <created>1732904544067</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1732904544067</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

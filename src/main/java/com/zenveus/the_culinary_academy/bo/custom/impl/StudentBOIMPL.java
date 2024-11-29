@@ -334,6 +334,8 @@ public class StudentBOIMPL implements StudentBO {
                 System.out.println("Total Due: " + totalDue);
                 System.out.println("Payment Status: " + studentProgram.getPayStatus());
 
+                // itf the total due is less than or equal to zero, set the payment status to paid
+
                 // Add to the list of student programs
                 studentPrograms.add(studentProgram);
             } catch (NumberFormatException e) {

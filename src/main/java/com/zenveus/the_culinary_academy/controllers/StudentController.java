@@ -652,6 +652,8 @@ public class StudentController implements Initializable {
     public void rowClick(MouseEvent mouseEvent) {
         System.out.println("click row");
 
+        paymentCombo.getItems().clear();
+
         StudentTm selectedItem = studentTable.getSelectionModel().getSelectedItem();
         if (selectedItem == null) {
             return;
@@ -712,15 +714,21 @@ public class StudentController implements Initializable {
             if (selectedProgram == null) return;
 
             // Extract program ID and name
-            String[] parts = selectedProgram.split(" - ");
-            String programId = parts[0].trim();
-            String programName = parts[1].trim();
+            List<String> parts = new ArrayList<>(Arrays.asList(selectedProgram.split("-")));
+            if (parts.size() < 2) return; // Ensure there are enough parts
+
+            String programId = parts.get(0).trim();
+            String programName = parts.get(1).trim();
+
+            System.out.println("Selected Program: " + programId + " - " + programName);
 
             // Find program details
             String[] programDetails = programText.toString().split("Program ID: " + programId);
             if (programDetails.length < 2) return; // If program not found, exit
 
             String[] programDetailsParts = programDetails[1].split("\n");
+            if (programDetailsParts.length < 6) return; // Ensure there are enough parts
+
             String paymentOption = programDetailsParts[4].split(":")[1].trim();
             String installmentFee = programDetailsParts[5].split(":")[1].trim();
 
@@ -740,7 +748,7 @@ public class StudentController implements Initializable {
             }
 
             // Check if the program is already added
-            if (paymentDetails.contains(programName)) {
+            if (paymentDetails.contains(programId)) {
                 new Alert(Alert.AlertType.WARNING, "The selected program is already added.").show();
                 return;
             }
@@ -756,7 +764,6 @@ public class StudentController implements Initializable {
             // Update the payment details text area
             paymentDetailsTxtArea.setText(updatedPaymentText.toString());
         });
-
     }
 
     public void loadAllStudents() {
