@@ -6,7 +6,6 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -96,18 +95,18 @@
             <AnchorPane layoutX="705.0" layoutY="85.0" prefHeight="536.0" prefWidth="333.0" style="-fx-background-color: rgba(255, 255, 255, 0.5); -fx-background-radius: 20;">
                <PieChart fx:id="studentPieChart" layoutX="70.0" layoutY="39.0" prefHeight="200.0" prefWidth="200.0" />
                <PieChart fx:id="programPieChart" layoutX="71.0" layoutY="293.0" prefHeight="200.0" prefWidth="200.0" />
-               <Text layoutX="18.0" layoutY="292.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Program">
+               <Text layoutX="126.0" layoutY="292.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Program">
                   <font>
                      <Font name="Gayathri Bold" size="18.0" />
                   </font>
                </Text>
-               <Text layoutX="18.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student">
+               <Text layoutX="128.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student">
                   <font>
                      <Font name="Gayathri Bold" size="18.0" />
                   </font>
                </Text>
             </AnchorPane>
-            <Text fx:id="wellcomeText" layoutX="30.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wellcome, User">
+            <Text fx:id="wellcomeText" layoutX="445.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wellcome, User">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -117,33 +116,33 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
-         <effect>
-            <Bloom />
-         </effect>
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
       </Button>
       <Button fx:id="studentBtn" layoutY="252.0" mnemonicParsing="false" onAction="#studentBtn" prefHeight="24.0" prefWidth="175.0" style="-fx-background-color: transpanent;" text="Student" textFill="WHITE">
-         <effect>
-            <Bloom />
-         </effect>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
       </Button>
       <Button fx:id="employeeBtn" layoutX="1.0" layoutY="305.0" mnemonicParsing="false" onAction="#employeeBtn" prefHeight="24.0" prefWidth="175.0" style="-fx-background-color: transpanent;" text="Employee" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
-         <effect>
-            <Bloom />
-         </effect>
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
       </Button>
       <Button fx:id="programBtn" layoutX="2.0" layoutY="359.0" mnemonicParsing="false" onAction="#programBtn" prefHeight="24.0" prefWidth="175.0" style="-fx-background-color: transpanent;" text="Program" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
-         <effect>
-            <Bloom />
-         </effect>
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
       </Button>
       <Button layoutX="54.0" layoutY="609.0" mnemonicParsing="false" onAction="#logOutBtn" style="-fx-background-color: transpanent;" text="LogOut" textFill="WHITE">
          <font>
@@ -160,9 +159,9 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
-         <effect>
-            <Bloom />
-         </effect>
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
       </Button>
       <Button layoutX="17.0" layoutY="8.0" maxHeight="10.0" maxWidth="10.0" minHeight="13.0" minWidth="13.0" mnemonicParsing="false" onAction="#systemExitBtn" prefHeight="10.0" prefWidth="10.0" style="-fx-background-radius: 50%; -fx-background-color: rgb(255, 90, 82);">
          <cursor>
