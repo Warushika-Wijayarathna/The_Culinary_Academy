@@ -771,11 +771,20 @@ public class StudentController implements Initializable {
 
     public void onFilterAction(ActionEvent event) {
         String selectedProgram = stuFilterComboBox.getValue().toString();
-        // if the selected program is "All Programs" then load all students
-        if (selectedProgram.equals("All Programs")) {
-            loadAllStudents();
-            return;
+        // if the selected program is "All Programs" then load students who assigned for all programs
+        List<Object[]> studentsDoingAllPrograms = studentbo.getStudentsDoingAllPrograms();
+
+        // get the student IDs from the studentsDoingAllPrograms and the students with the matching studentid leave in the table
+        for (Object[] student : studentsDoingAllPrograms) {
+            for (StudentDto studentDto : studentbo.getAllStudents()) {
+                System.out.println(student[0]);
+                if (studentDto.getStudentId().equals(student[0])) {
+                    JFXButton btn = new JFXButton("Delete");
+                    observableList.add(new StudentTm(studentDto.getStudentId(), studentDto.getFullName(), studentDto.getStudentNic(), getAge(studentDto.getDob()), studentDto.getEmail(), studentDto.getPhone(), studentDto.getAddress(), btn));
+                }
+            }
         }
+
         List<StudentDto> allStudents = studentbo.getAllStudents();
         observableList.clear();
 

@@ -22,7 +22,6 @@ public class Launcher extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.initStyle(StageStyle.UNDECORATED);
-        stage.initStyle(StageStyle.TRANSPARENT);
 
         stage.show();
 

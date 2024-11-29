@@ -13,4 +13,6 @@ public interface StudentProgramTransDAO extends SuperDAO {
     boolean updateStudentAndPrograms(Student student, List<StudentProgram> studentPrograms, Payment payment);
 
     List<Object[]> getStudentCourseCount();
+
+    List<Object[]> getStudentsDoingAllPrograms();
 }

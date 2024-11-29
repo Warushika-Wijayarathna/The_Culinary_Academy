@@ -385,4 +385,15 @@ public class StudentBOIMPL implements StudentBO {
         return studentsByProgram;
     }
 
+    @Override
+    public List<Object[]> getStudentsDoingAllPrograms() {
+        List<Object[]> studentsDoingAllPrograms = null;
+        try {
+            studentsDoingAllPrograms = studentProgramTransDAO.getStudentsDoingAllPrograms();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return studentsDoingAllPrograms;
+    }
+
 }

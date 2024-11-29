@@ -96,21 +96,28 @@ public class ProgramController implements Initializable {
 
     private String getLastProgramId() {
         List<ProgramDto> allPrograms = programBo.getAllPrograms();
-
-        if (allPrograms.isEmpty()) {
-            return "P001";
+        if (allPrograms == null || allPrograms.isEmpty()) {
+            return "CA1001";
         }
 
+        // Get the last program ID
         String lastProgramId = allPrograms.get(allPrograms.size() - 1).getProgramId();
-        if (lastProgramId == null || lastProgramId.isEmpty() || !lastProgramId.matches("P\\d+")) {
-            return "P001";
+        if (lastProgramId == null || !lastProgramId.matches("CA1\\d+")) {
+            return "CA1001";
         }
 
-        int id = Integer.parseInt(lastProgramId.substring(1));
-        id++;
-
-        return String.format("P%03d", id);
+        try {
+            // Extract numeric part and increment
+            int id = Integer.parseInt(lastProgramId.substring(3));
+            id++;
+            return String.format("CA1%03d", id); // Keep 3-digit padding
+        } catch (NumberFormatException e) {
+            // Log error and return default ID
+            System.err.println("Invalid program ID format: " + lastProgramId);
+            return "CA1001";
+        }
     }
+
 
     private void setTransition() {
         sideTransition = new TranslateTransition(Duration.seconds(1.5), programRegMainAnchor);

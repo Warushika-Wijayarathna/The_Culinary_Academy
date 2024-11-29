@@ -23,4 +23,6 @@ public interface StudentBO extends SuperBO {
     boolean updateStudentAndPrograms(StudentDto studentDto, List<String[]> programDetailsList, double total);
 
     List<Object[]> getStudentsByProgram(String selectedProgram);
+
+    List<Object[]> getStudentsDoingAllPrograms();
 }

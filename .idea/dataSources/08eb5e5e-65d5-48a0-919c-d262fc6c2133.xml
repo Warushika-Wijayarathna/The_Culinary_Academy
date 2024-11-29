@@ -1081,7 +1081,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="295" parent="1" name="culinary_academy">
-      <LastIntrospectionLocalTimestamp>2024-11-28.19:17:32</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-11-29.15:16:54</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="296" parent="1" name="gdse69">

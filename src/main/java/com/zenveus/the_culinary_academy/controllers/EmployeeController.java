@@ -262,14 +262,17 @@ public class EmployeeController implements Initializable {
         try {
             boolean isAdded = userBO.addUser(userDTO);
             if (isAdded) {
-                new Alert(Alert.AlertType.INFORMATION, "Employee Added Successfully!").showAndWait();
+                Platform.runLater(() -> {
+                    new Alert(Alert.AlertType.INFORMATION, "Employee Added Successfully!").showAndWait();
+                });
+
                 setEmployeeID();
                 clearAllFields();
                 loadAllEmployees();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to Add Employee!").showAndWait();
             }
-        } catch (RegistrationException e){
+        } catch (RegistrationException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
         } catch (Exception e) {
             e.printStackTrace();
@@ -284,8 +287,20 @@ public class EmployeeController implements Initializable {
 
         String password = base + randomNum + specialChar;
         System.out.println("password: " + password);
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Generated Password");
+        alert.setHeaderText(null);
+        alert.setContentText("Generated Password: " + password);
+        alert.showAndWait();
+
+        setEmployeeID();
+        clearAllFields();
+        loadAllEmployees();
+
         return BCryptHasher.hashPassword(password);
     }
+
     private String generateUsername(String employeeName) {
         // username is the first word of the full name
         return employeeName.split("\\s+")[0].toLowerCase();
