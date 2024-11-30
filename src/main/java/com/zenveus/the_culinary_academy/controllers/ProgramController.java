@@ -122,7 +122,7 @@ public class ProgramController implements Initializable {
     private void setTransition() {
         sideTransition = new TranslateTransition(Duration.seconds(1.5), programRegMainAnchor);
         sideTransition.setFromX(0);
-        sideTransition.setToX(520); // Set initial `toX` based on `isShow`
+        sideTransition.setToX(220); // Set initial `toX` based on `isShow`
         updateIcon();
     }
 
@@ -137,8 +137,8 @@ public class ProgramController implements Initializable {
         sideTransition.stop();  // Stop any ongoing transition before starting a new one
 
         // Set starting and ending points dynamically based on isShow
-        sideTransition.setFromX(isShow ? 520 : 0);
-        sideTransition.setToX(isShow ? 0 : 520);
+        sideTransition.setFromX(isShow ? 220 : 0);
+        sideTransition.setToX(isShow ? 0 : 220);
         sideTransition.setDuration(Duration.seconds(1.5));
 
         isShow = !isShow;  // Toggle the state
@@ -218,6 +218,12 @@ public class ProgramController implements Initializable {
     public void programSaveBtn(ActionEvent actionEvent) {
         System.out.println("click program save Btn");
 
+        // all fields must be filled
+        if (programIDField.getText().isEmpty() || programNameField.getText().isEmpty() || programDurationField.getText().isEmpty() || programFeeField.getText().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "All fields must be filled!").showAndWait();
+            return;
+        }
+
         String programID = programIDField.getText();
         String programName = programNameField.getText();
         String programDuration = programDurationField.getText();
@@ -256,6 +262,17 @@ public class ProgramController implements Initializable {
     // program update btn
     public void programUpdateBtn(ActionEvent actionEvent) {
         System.out.println("click program update Btn");
+
+        /// do not add if user id is already existing
+        List<ProgramDto> allPrograms = programBo.getAllPrograms();
+
+        for (ProgramDto program : allPrograms) {
+            if (program.getProgramId().equals(programIDField.getText())) {
+                new Alert(Alert.AlertType.WARNING, "Program ID already exists!").showAndWait();
+                return;
+            }
+        }
+
 
         ProgramDto programDto = new ProgramDto();
         programDto.setProgramId(programIDField.getText());
@@ -298,7 +315,7 @@ public class ProgramController implements Initializable {
             if (isShow) {
                 isShow = !isShow;
                 sideTransition.setDuration(Duration.seconds(isShow ? 1.5 : 2));
-                sideTransition.setToX(isShow ? 520 : 0);
+                sideTransition.setToX(isShow ? 220 : 0);
                 updateIcon();
                 sideTransition.play();
             }

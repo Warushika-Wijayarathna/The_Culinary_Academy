@@ -191,13 +191,13 @@ public class StudentController implements Initializable {
         double advancePay = 0;
         switch (selectedPaymentOption) {
             case "3 inst":
-                advancePay = fee * 0.03;
+                advancePay = fee * 0.15;
                 break;
             case "6 inst":
-                advancePay = fee * 0.05;
+                advancePay = fee * 0.1;
                 break;
             case "12 inst":
-                advancePay = fee * 0.07;
+                advancePay = fee * 0.05;
                 break;
         }
 
@@ -231,7 +231,7 @@ public class StudentController implements Initializable {
         colStuEmail.setCellValueFactory(new PropertyValueFactory<>("studentEmail"));
         colStuPhone.setCellValueFactory(new PropertyValueFactory<>("studentPhone"));
         colStuAddress.setCellValueFactory(new PropertyValueFactory<>("studentAddress"));
-        colAction.setCellValueFactory(new PropertyValueFactory<>("btn"));
+
     }
 
     private void setStudentID() {
@@ -277,8 +277,8 @@ public class StudentController implements Initializable {
         sideTransition.stop();  // Stop any ongoing transition before starting a new one
 
         // Set starting and ending points dynamically based on isShow
-        sideTransition.setFromX(isShow ? 870 : 0);
-        sideTransition.setToX(isShow ? 0 : 870);
+        sideTransition.setFromX(isShow ? 570 : 0);
+        sideTransition.setToX(isShow ? 0 : 570);
         sideTransition.setDuration(Duration.seconds(1.5));
 
         isShow = !isShow;  // Toggle the state
@@ -291,7 +291,12 @@ public class StudentController implements Initializable {
     public void studentBackBtn(ActionEvent actionEvent) {
         System.out.println("click student page back Btn");
 
-        System.out.println("click employee page back Btn");
+        // if fields are filled do not allow them to back
+
+        if (!studentIDField.getText().isEmpty() || !studentNameField.getText().isEmpty() || !studentNICField.getText().isEmpty() || studentDOBField.getValue() != null || !studentPhoneField.getText().isEmpty() || !studentEmailField.getText().isEmpty() || !studentAddressField.getText().isEmpty() || !selectProgramShow.getText().isEmpty() || !paymentDetailsTxtArea.getText().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please save before going back.").show();
+            return;
+        }
 
         DashboardController dashboardController = new DashboardController();
         dashboardController.loadDashboard(reportMainAnchor);
@@ -312,7 +317,7 @@ public class StudentController implements Initializable {
 
         for (StudentDto studentDto : allStudents) {
             if (studentDto.getFullName().contains(studentName)) {
-                observableList.add(new StudentTm(studentDto.getStudentId(), studentDto.getFullName(), studentDto.getStudentNic(), getAge(studentDto.getDob()), studentDto.getEmail(), studentDto.getPhone(), studentDto.getAddress(), new JFXButton("Delete")));
+                observableList.add(new StudentTm(studentDto.getStudentId(), studentDto.getFullName(), studentDto.getStudentNic(), getAge(studentDto.getDob()), studentDto.getEmail(), studentDto.getPhone(), studentDto.getAddress()));
             }
         }
 
@@ -344,6 +349,12 @@ public class StudentController implements Initializable {
             }
         }
 
+        // all fields must be filled
+        if (studentIDField.getText().isEmpty() || studentNameField.getText().isEmpty() || studentNICField.getText().isEmpty() || studentDOBField.getValue() == null || studentPhoneField.getText().isEmpty() || studentEmailField.getText().isEmpty() || studentAddressField.getText().isEmpty()) {
+            new Alert(Alert.AlertType.ERROR, "Please fill all the fields.").show();
+            return;
+        }
+
         String studentId = studentIDField.getText();
         String studentName = studentNameField.getText();
         String studentNIC = studentNICField.getText();
@@ -356,10 +367,6 @@ public class StudentController implements Initializable {
 
         // Validations
 
-        if (studentName.isEmpty() || studentNIC.isEmpty() || studentDOB.isEmpty() || studentPhone.isEmpty() || studentEmail.isEmpty() || studentAddress.isEmpty()) {
-            new Alert(Alert.AlertType.ERROR, "Please fill all the fields.").show();
-            return;
-        }
 
         if (!Regex.isTextFieldValid(TextFields.EMAIL, studentEmail)) {
             new Alert(Alert.AlertType.ERROR, "Invalid Email!").show();
@@ -673,8 +680,8 @@ public class StudentController implements Initializable {
         loadProgramsAndPayments(student.getStudentId());
 
         if (isShow) {
-            sideTransition.setFromX(isShow ? 870 : 0);
-            sideTransition.setToX(isShow ? 0 : 870);
+            sideTransition.setFromX(isShow ? 570 : 0);
+            sideTransition.setToX(isShow ? 0 : 850);
             sideTransition.setDuration(Duration.seconds(1.5));
             updateIcon();
             sideTransition.play();
@@ -771,8 +778,7 @@ public class StudentController implements Initializable {
         observableList.clear();
 
         for (StudentDto studentDto : allStudents) {
-            JFXButton btn = new JFXButton("Delete");
-            observableList.add(new StudentTm(studentDto.getStudentId(), studentDto.getFullName(), studentDto.getStudentNic(), getAge(studentDto.getDob()), studentDto.getEmail(), studentDto.getPhone(), studentDto.getAddress(), btn));
+            observableList.add(new StudentTm(studentDto.getStudentId(), studentDto.getFullName(), studentDto.getStudentNic(), getAge(studentDto.getDob()), studentDto.getEmail(), studentDto.getPhone(), studentDto.getAddress()));
         }
         studentTable.setItems(observableList);
     }
@@ -799,9 +805,8 @@ public class StudentController implements Initializable {
             for (Object[] student : studentsDoingAllPrograms) {
                 for (StudentDto studentDto : studentbo.getAllStudents()) {
                     if (studentDto.getStudentId().equals(student[0])) {
-                        JFXButton btn = new JFXButton("Delete");
                         observableList.add(new StudentTm(studentDto.getStudentId(), studentDto.getFullName(), studentDto.getStudentNic(),
-                                getAge(studentDto.getDob()), studentDto.getEmail(), studentDto.getPhone(), studentDto.getAddress(), btn));
+                                getAge(studentDto.getDob()), studentDto.getEmail(), studentDto.getPhone(), studentDto.getAddress()));
                     }
                 }
             }
@@ -814,9 +819,8 @@ public class StudentController implements Initializable {
             for (Object[] student : filteredStudents) {
                 for (StudentDto studentDto : studentbo.getAllStudents()) {
                     if (studentDto.getStudentId().equals(student[0])) {
-                        JFXButton btn = new JFXButton("Delete");
                         observableList.add(new StudentTm(studentDto.getStudentId(), studentDto.getFullName(), studentDto.getStudentNic(),
-                                getAge(studentDto.getDob()), studentDto.getEmail(), studentDto.getPhone(), studentDto.getAddress(), btn));
+                                getAge(studentDto.getDob()), studentDto.getEmail(), studentDto.getPhone(), studentDto.getAddress()));
                     }
                 }
             }

@@ -112,7 +112,7 @@ public class EmployeeController implements Initializable {
     private void setTransition() {
         sideTransition = new TranslateTransition(Duration.seconds(1.5), employeeRegMainAnchor);
         sideTransition.setFromX(0);
-        sideTransition.setToX(550); // Set initial `toX` based on `isShow`
+        sideTransition.setToX(250); // Set initial `toX` based on `isShow`
         updateIcon();
     }
     //   update side menu icon
@@ -128,8 +128,8 @@ public class EmployeeController implements Initializable {
         sideTransition.stop();  // Stop any ongoing transition before starting a new one
 
         // Set starting and ending points dynamically based on isShow
-        sideTransition.setFromX(isShow ? 550 : 0);
-        sideTransition.setToX(isShow ? 0 : 550);
+        sideTransition.setFromX(isShow ? 250 : 0);
+        sideTransition.setToX(isShow ? 0 : 250);
         sideTransition.setDuration(Duration.seconds(1.5));
 
         isShow = !isShow;  // Toggle the state
@@ -211,6 +211,12 @@ public class EmployeeController implements Initializable {
     // employee save btn
     public void employeeSaveBtn(ActionEvent actionEvent) {
         System.out.println("click employee save Btn");
+
+        // all employee fields must be filled
+        if(employeeIDField.getText().isEmpty() || employeeEmailField.getText().isEmpty() || employeeNameField.getText().isEmpty() || employeePhoneField.getText().isEmpty() || employeeAddressField.getText().isEmpty() || userJob.getValue() == null){
+            new Alert(Alert.AlertType.WARNING, "All Fields Must Be Filled!").showAndWait();
+            return;
+        }
 
         String employeeID = employeeIDField.getText();
         String employeeEmail = employeeEmailField.getText();
@@ -350,6 +356,18 @@ public class EmployeeController implements Initializable {
     public void employeeUpdateBtn(ActionEvent actionEvent) {
         System.out.println("click employee update Btn");
 
+        // no duplicate employees can be added
+        List<UserDto> allUsers = userBO.getAllUsers();
+
+        // id is already existing do not add
+        for (UserDto user : allUsers) {
+            if (user.getUserId().equals(employeeIDField.getText())) {
+                new Alert(Alert.AlertType.WARNING, "Employee ID already exists!").showAndWait();
+                return;
+            }
+        }
+
+
         UserDto user = new UserDto();
         user.setUserId(employeeIDField.getText());
         user.setFullName(employeeNameField.getText());
@@ -449,7 +467,7 @@ public class EmployeeController implements Initializable {
             if(isShow){
                 isShow = false;
                 sideTransition.setDuration(Duration.seconds(2));
-                sideTransition.setToX(isShow ? 550 : 0);
+                sideTransition.setToX(isShow ? 250 : 0);
                 updateIcon();
                 sideTransition.play();
             }

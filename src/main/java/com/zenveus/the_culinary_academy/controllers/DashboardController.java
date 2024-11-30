@@ -24,6 +24,7 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -118,6 +119,15 @@ public class DashboardController  implements Initializable {
         // Add demo data (Month and Payment Amount)
         List<Object[]> monthlyTotalPayments = chartBO.getMonthlyTotalPayments();
 
+        // Sort the data by month (ascending order)
+        Collections.sort(monthlyTotalPayments, (row1, row2) -> {
+            int month1 = (int) row1[0];
+            int month2 = (int) row2[0];
+            return Integer.compare(month1, month2);
+        });
+
+
+        // Add the sorted data to the chart series
         for (Object[] row : monthlyTotalPayments) {
             int month = (int) row[0];
             double amount = (double) row[1];
@@ -162,7 +172,6 @@ public class DashboardController  implements Initializable {
             stage.setScene(scene);
             stage.setResizable(false);
             stage.initStyle(StageStyle.UNDECORATED);
-            stage.initStyle(StageStyle.TRANSPARENT);
 
             dashStage = (Stage)mainContainer.getScene().getWindow();
             dashStage.close();
