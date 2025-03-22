@@ -89,6 +89,7 @@ public class StudentController implements Initializable {
         setPaymentComboBox();
         setProgramComboAction();
         disableFields();
+
     }
 
     private void disableFields() {
